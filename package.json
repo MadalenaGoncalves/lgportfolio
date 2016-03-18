@@ -1,0 +1,28 @@
+{
+  "name": "lgportfolio",
+  "version": "1.0.0",
+  "description": "An architect portfolio",
+  "main": "index.js",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/MadalenaGoncalves/lgportfolio.git"
+  },
+  "dependencies": {
+    "mongodb"    : "2.1.6",
+    "express"    : "4.13.4",
+    "ejs"        : "0.8.5",
+    "ejs-locals" : "1.0.2",
+    "mongoose"   : "3.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "MadalenaGoncalves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MadalenaGoncalves/lgportfolio/issues"
+  },
+  "homepage": "localhost/lgportfolio"
+}
