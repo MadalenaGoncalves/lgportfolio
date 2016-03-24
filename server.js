@@ -13,13 +13,14 @@ var querystring = require('querystring');
 
 // all environments
 app.set( 'port', process.env.PORT || 3000 );
-app.engine( 'ejs', engine );
-app.set( 'views', path.join( __dirname, 'views' ));
-app.set( 'view engine', 'ejs' );
+// app.engine( 'ejs', engine );
+// app.set( 'views', path.join( __dirname, 'public' ));
+// app.set( 'view engine', 'ejs' );
 
 
 // Middleware
 var routes = require('./router');
+app.use(express.static(path.join(__dirname, 'public/static')));
 app.use('/',routes);
 
 // app.use( express.favicon());
@@ -30,7 +31,6 @@ app.use('/',routes);
 // app.use( express.urlencoded());
 // app.use( express.methodOverride());
 // app.use( express.errorHandler());
-// app.use( express.static( path.join( __dirname, 'public' )));
 
 // START SERVER
 http.createServer(app).listen(app.get('port'), function(){

@@ -1,0 +1,97 @@
+/* my_display: 1245px */
+/* target / context(=1245) = result */
+section{
+    /*border: 1px solid green;*/
+}
+.container{
+    /*border: 1px solid brown;*/
+    box-sizing: content-box;
+    width: 75.5%;
+    /*margin: 0 auto;*/
+    /*padding: 5%;*/
+}
+.row{
+    /*overflow: hidden;*/
+    /*margin-left: -15px;
+    margin-right: -15px;*/
+}
+/*[class*="col-"] {
+    margin-bottom: -99999px;
+    padding-bottom: -99999px; 
+    border: 1px solid grey;
+    /*min-height: 100px;
+    max-height: 200px;* /
+    
+}*/
+[class*="col-"] { 
+    border: none;
+}
+.thumbnail{
+    text-align: center;
+    border: none;
+}
+.thumbnail:hover{
+    /*border: 1px solid;*/
+}
+.img-wrapper{
+    position: relative;
+    width: 100%;
+}
+.img-wrapper:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+.content{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+    background-image: url("../images/sprite_text.png");
+    background-repeat: no-repeat;
+    background-size: 700% 200%;
+    height: 200px;
+}
+.content#proj1{
+    background-position: 0 0;
+}
+.content#proj1:hover{
+    background-position: 0 -200px;
+}
+.content#proj2{
+    background-position: -210px 0;
+}
+.content#proj2:hover{
+    background-position: -210px -200px; 
+}
+.content#proj3{
+    background-position: -415px 0;
+}
+.content#proj3:hover{
+    background-position: -415px -200px;
+}
+.content#proj4{
+    background-position: -625px 0;
+}
+.content#proj4:hover{
+    background-position: -625px -200px;
+}
+.content#proj5{
+    background-position: -840px 0;
+}
+.content#proj5:hover{
+    background-position: -840px -200px;
+}
+.content#proj6{
+    background-position: -1052px 0;
+}
+.content#proj6:hover{
+    background-position: -1052px -200px;
+}
+.content#proj7{
+    background-position: -1275px 0;
+}
+.content#proj7:hover{
+    background-position: -1275px -200px;
+}
