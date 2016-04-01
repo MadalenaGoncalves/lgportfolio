@@ -30,9 +30,6 @@ section{
     text-align: center;
     border: none;
 }
-.thumbnail:hover{
-    /*border: 1px solid;*/
-}
 .img-wrapper{
     position: relative;
     width: 100%;
@@ -43,7 +40,8 @@ section{
     padding-top: 100%;
 }
 .content{
-	position: absolute;
+	/*border: 1px solid green;*/
+    position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -72,26 +70,26 @@ section{
     background-position: -415px -200px;
 }
 .content#proj4{
-    background-position: -625px 0;
+    background-position: -620px 0;
 }
 .content#proj4:hover{
-    background-position: -625px -200px;
+    background-position: -620px -200px;
 }
 .content#proj5{
-    background-position: -840px 0;
+    background-position: -828px 0;
 }
 .content#proj5:hover{
-    background-position: -840px -200px;
+    background-position: -828px -200px;
 }
 .content#proj6{
-    background-position: -1052px 0;
+    background-position: -1035px 0;
 }
 .content#proj6:hover{
-    background-position: -1052px -200px;
+    background-position: -1035px -200px;
 }
 .content#proj7{
-    background-position: -1275px 0;
+    background-position: -1255px 0;
 }
 .content#proj7:hover{
-    background-position: -1275px -200px;
+    background-position: -1255px -200px;
 }
