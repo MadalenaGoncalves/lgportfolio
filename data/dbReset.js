@@ -1,66 +1,151 @@
+var async = require('async');
 var mongoose = require( 'mongoose' ),
-    // _ = require( 'lodash' ),
+    imgModel = require( './../models/images.js' ),
+    projModel = require( './../models/projects.js' ),
     projectsData = require( './projects.json' ),
     imagesData = require( './images.json' ),
-    projImgMapperData = require( './projImgMapper.json' );
+    mapperData = require( './projImgMapper.json' );
 
-exports.reset = function( req, res ) {
-    // get refs to the models we defined above
-    var Project = mongoose.model( 'Projects' );
-    var Image = mongoose.model( 'Images' );
-    var ProjImgMap = mongoose.model( 'ProjImgMapper' );
+// get refs to the models we defined above
+var Image = mongoose.model( 'Images' );
+var Project = mongoose.model( 'Projects' );
 
-    // clear all existing documents from the collections
-    Projects.find().remove();
-    Images.find().remove();
-    ProjImgMapper.find().remove();
-
-    // populate the Projects collection from json data (which do not reference anything else)
-    for( var i = 0; i < projectsData.length; i++ ) {
-        new Project( projectsData[ i ] ).save();
-    }
-    
-    // populate the Images collection from json data (which do not reference anything else)
-    for( var i = 0; i < imagesData.length; i++ ) {
-        new Image( imagesData[ i ] ).save();
-    }
-    
-    
-    
-Story.findOne({ title: 'Once upon a timex.' }, function(error, story) {
-  if (error) {
-    return handleError(error);
-  }
-  story._creator = aaron;
-  console.log(story._creator.name); // prints "Aaron"
-});
-
-    // now that the collections are populated, we can iterate over it
-    Food.find( function( err, foods ) {
-        var foodMap = {};
-
-        // store _ids of Food documents that Mongo generated upon insert
-        for( var i = 0; i < foods.length; i++ ) {
-            var food = foods[i];
-            // I am mapping the ids to the food names because the LogEntry
-            // JSON data contained this field thanks to the original source
-            // data's structure (a spreadsheet).
-            // You could utilize a more sophisticated lookup here if necessary.
-            foodMap[ food.name ] = food._id;
-        }
-
-        // populate the LogEntries collection from json data
-        for( i = 0; i < logData.length; i++ ) {
-            var logEntry = logData[ i ];
-            // we find and store food._id on LogEntry for reference
-            logEntry._food = foodMap[ logEntry.food_name ];
-
-            // note that only the fields defined in the schema will be
-            // persisted to Mongo, so the foodName field we used for
-            // lookup will not be unnecessarily added to the db
-            new LogEntry( logEntry ).save();
-        }
-    } );
-
-    res.redirect( "/" );
+// var insertColl = function(modelName){
+//     assert.ok(modelInst instanceof mongoose.Schema.Types.String);
+//     for( var i = 0; i < collData.length; i++ ) {
+//         var auxModel = new Image( collData[ i ] );
+//         auxModel.save(function(err,img){
+//             if(err) console.error(err);
+//             console.log("Added record'" + img.name + "'");
+//         });
+//     }
+// };
+var clearAllColls = function(callback){
+    Image.remove({}, function(callback){ 
+        if(err) return callback(err);
+        
+        console.log("Deleted all documents from Images");
+        // Project.remove({}, function(callback){
+        //     if(err) return callback(err); 
+            
+        //     console.log("Deleted all documents from Projects");
+            callback();
+        // });
+    });
 }
+var populateImages = function(callback){
+    // populate the Images collection from json data
+    async.forEach(imagesData, function(img){
+        new Image(img).save(function(err,img){
+            if(err) return callback(err);
+            console.log("Added image: '" + img.name + "'");
+        });
+    }, function(err) {
+        if (err) return next(err);
+        callback();
+    });
+};
+// var populateImages = function(callback){
+//     // populate the Images collection from json data
+//     for( var i = 0; i < imagesData.length; i++ ) {
+//         new Image( imagesData[ i ] ).save(function(err,img){
+//             if(err) return callback(err);
+//             console.log("Added image: '" +aimg.name + "'");
+//         });
+//     }
+//     callback();
+// };
+var populateProjects = function(callback){
+    // populate the Projects collection from json data
+    for( var i = 0; i < projectsData.length; i++ ) {
+        new Project( projectsData[ i ] ).save(function(err,proj){
+            if(err) console.error(err);
+            console.log("Added project: '" + proj.name + "'");
+        });
+    }
+    callback();
+};
+// var mappColl = function(callback){
+//     // Map images to projects
+//     for( var i = 0; i < mapperData.length; i++ ) {
+//         var proj = Project.find({ name : mapperData[i].project } )
+//         for (var j=0; j<mapperData[i].images; j++){
+//             var img = Image.find({ name : mapperData[i].images[j] } );
+//             proj.images.push(img._id).save();
+//         }
+//         proj.populate("images").exec(function(err,proj){
+//             if(err) return callback(err);
+//             console.log("Project '" + proj.name + "' populated with images array.");
+//         });
+//     }
+//     callback();
+// }
+
+var resetDB = function() {
+    mongoose.connect('mongodb://localhost/lgportfoliodb');
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+        // console.log( typeof callback === 'function')
+        async.series(
+            [
+                function(callback){
+                    Image.remove({}, function(){ 
+                        if(err) return callback(err);
+                        console.log("Deleted all documents from Images");
+                        callback();
+                    });
+                },
+                function(callback){
+                    Project.remove({}, function(){ 
+                        if(err) return callback(err);
+                        console.log("Deleted all documents from Projects");
+                        callback();
+                    });
+                },
+                function(callback){
+                    async.forEach(imagesData, function(doc){
+                        new Image(doc).save(function(err,d){
+                            if(err) return callback(err);
+                            console.log("Added image: '" + d.name + "'");
+                            callback();
+                        });
+                    }, function(err) {
+                        if (err) return next(err);
+                    })
+                },
+                function(callback){
+                    async.forEach(projectsData, function(doc){
+                        new Project(doc).save(function(err,d){
+                            if(err) return callback(err);
+                            console.log("Added project: '" + d.name + "'");
+                            callback();
+                        });
+                    }, function(err) {
+                        if (err) return next(err);
+                    });
+                },
+                function(callback){
+                    for( var i = 0; i < mapperData.length; i++ ) {
+                        var proj = Project.find({ name : mapperData[i].project } )
+                        for (var j=0; j<mapperData[i].images; j++){
+                            var img = Image.find({ name : mapperData[i].images[j] } );
+                            proj.images.push(img._id).save();
+                        }
+                        proj.populate("images").exec(function(err,proj){
+                            if(err) return callback(err);
+                            console.log("Project '" + proj.name + "' populated with images array.");
+                        });
+                    }
+                    callback();
+                }
+                // mappColl()
+            ], function(err){
+                if(err) console.error(err);
+                console.log("Database data has been reseted");
+        });
+    });
+    // db.close();
+}
+
+exports.resetDB = resetDB;

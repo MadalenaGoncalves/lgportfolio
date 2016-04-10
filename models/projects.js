@@ -1,13 +1,18 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+var ImgModel = require('./images.js');
+var ImgSchema = mongoose.model('Images').schema;
 
-var schema = {
+// Schema declaration
+var projectSchema = mongoose.Schema({
+    name          : String,
     shortTitle    : String,
     shortDesc     : String,
     title         : String,
     description   : String,
     category      : String,
-    startDate     : Date,
-    endDate       : Date,
+    startYear     : Date,
+    endYear       : Date,
     thumbnailId   : String,
     address       : String,
     country       : String,
@@ -16,9 +21,20 @@ var schema = {
     floorArea     : Number,
     company       : String,
     companyUrl    : String,
-    participation : String
-};
+    participation : String,
+    images        : [{ type: Schema.Types.ObjectId, ref: 'Images' }]
+});
 
-var Projects = mongoose.model('Projects',schema);
+// Behavior - NOTE: methods must be added to the schema before compiling it with mongoose.model()
+// projectSchema.methods.[method_name] = function(){ ... }
+
+// kittySchema.methods.speak = function () {
+//   var greeting = this.name
+//     ? "Meow name is " + this.name
+//     : "I don't have a name";
+//   console.log(greeting);
+// }
+
+var Projects = mongoose.model('Projects',projectSchema);
 
 module.exports = Projects;

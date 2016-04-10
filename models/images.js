@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
-var schema = {
-    imageId   : String,
-    caption   : String
-};
+var imageSchema = mongoose.Schema({
+    name    : String,
+    caption : String
+});
 
-var Images = mongoose.model('Images',schema);
+var Images = mongoose.model('Images',imageSchema);
 
 module.exports = Images;

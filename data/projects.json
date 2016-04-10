@@ -1,6 +1,6 @@
 [
     {
-        "_id": "proj1",
+        "name": "proj1",
         "shortTitle": "",
         "shortDesc": "",
         "title": "KONZEPT FÜR DEN UMBAU EINER BÜROETAGE BEI BAYER",
@@ -19,7 +19,7 @@
         "participation": "Konzept | Vorentwurfsplanung | Skizze, Pläne, Perspektive | Präsentationen | Modell"
     },
     {
-        "_id": "proj2",
+        "name": "proj2",
         "shortTitle": "",
         "shortDesc": "",
         "title": "MODERNISIERUNG UND ERWEITERUNG VON EINEM MEHRFAMILIENHAUS",
@@ -38,7 +38,7 @@
         "participation": "Konzept| Bestandsaufnahme| Entwurfsplanung - Skizze, Pläne, Perspektive| Vorbereitung der Baugenhemigung| Ausführungsplanung | Baustellenbesichtigung"
     },
     {
-        "_id": "proj3",
+        "name": "proj3",
         "shortTitle": "",
         "shortDesc": "",
         "title": "BÜRO- UND LABORGEBÄUDE FÜR DIE AUFZUGSFABRIK WINSCHEID & WENDEL",
@@ -57,7 +57,7 @@
         "participation": "Konzept| Entwurfsplanung - Skizze, Pläne, Perspektive| Vorbereitung der Baugenhemigung| Ausführungsplanung"
     },
     {
-        "_id": "proj4",
+        "name": "proj4",
         "shortTitle": "",
         "shortDesc": "",
         "title": "KONZEPT FÜR EINEN AUFENTHALTSRAUM FÜR WINSCHEID & WENDEL",
@@ -74,7 +74,7 @@
         "participation": "Konzept | Vorentwurf | Skizze, Pläne, Perspektive"
     },
     {
-        "_id": "proj5",
+        "name": "proj5",
         "shortTitle": "",
         "shortDesc": "",
         "title": "PROJEKT EINES PARKHAUSES IN GUIMARÃES",
@@ -90,7 +90,7 @@
         "participation": ""
     },
     {
-        "_id": "proj6",
+        "name": "proj6",
         "shortTitle": "",
         "shortDesc": "",
         "title": "VERTIKALE HÄUSER” - WOHNHAUS PROJEKT",
@@ -106,7 +106,7 @@
         "participation": ""
     },
     {
-        "_id": "proj7",
+        "name": "proj7",
         "shortTitle": "",
         "shortDesc": "",
         "title": "ICH WILL NICHT MIT HILTON KONKURRIEREN - HOTEL IN BARCELONA",
@@ -122,22 +122,3 @@
         "participation": ""
     }
 ]
-// ,
-// {
-//     "_id": "proj",
-//     "shortTitle": "",
-//     "shortDesc": "",
-//     "title": "",
-//     "description": "",
-//     "category": "",
-//     "startYear": "",
-//     "endYear": "",
-//     "thumbnailId": "",
-//     "address": "",
-//     "country": "",
-//     "city": "",
-//     "grossArea": ,
-//     "floorArea": ,
-//     "company": "",
-//     "participation": ""
-// }
