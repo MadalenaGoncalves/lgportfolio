@@ -89,22 +89,21 @@ var resetDB = function() {
         // console.log( typeof callback === 'function')
         async.series(
             [
-                function(callback){
-                    Image.remove({}, function(){ 
-                        if(err) return callback(err);
-                        console.log("Deleted all documents from Images");
-                        callback();
-                    });
-                },
-                function(callback){
-                    Project.remove({}, function(){ 
-                        if(err) return callback(err);
-                        console.log("Deleted all documents from Projects");
-                        callback();
-                    });
-                },
-                function(callback){
-                    async.forEach(imagesData, function(doc){
+                // function(callback){
+                //     Image.remove({}, function(err){ 
+                //         if(err) return callback(err);
+                //         console.log("Deleted all documents from Images");
+                //         callback();
+                //     });
+                // },
+                // function(callback){
+                //     Project.remove({}, function(err){ 
+                //         if(err) return callback(err);
+                //         console.log("Deleted all documents from Projects");
+                //     });
+                // },
+                function(){
+                    async.forEach(imagesData, function(doc,callback){
                         new Image(doc).save(function(err,d){
                             if(err) return callback(err);
                             console.log("Added image: '" + d.name + "'");
@@ -114,8 +113,8 @@ var resetDB = function() {
                         if (err) return next(err);
                     })
                 },
-                function(callback){
-                    async.forEach(projectsData, function(doc){
+                function(){
+                    async.forEach(projectsData, function(doc,callback){
                         new Project(doc).save(function(err,d){
                             if(err) return callback(err);
                             console.log("Added project: '" + d.name + "'");
@@ -123,22 +122,23 @@ var resetDB = function() {
                         });
                     }, function(err) {
                         if (err) return next(err);
-                    });
-                },
-                function(callback){
-                    for( var i = 0; i < mapperData.length; i++ ) {
-                        var proj = Project.find({ name : mapperData[i].project } )
-                        for (var j=0; j<mapperData[i].images; j++){
-                            var img = Image.find({ name : mapperData[i].images[j] } );
-                            proj.images.push(img._id).save();
-                        }
-                        proj.populate("images").exec(function(err,proj){
-                            if(err) return callback(err);
-                            console.log("Project '" + proj.name + "' populated with images array.");
-                        });
-                    }
-                    callback();
+                    })
                 }
+                // ,
+                // function(callback){
+                //     for( var i = 0; i < mapperData.length; i++ ) {
+                //         var proj = Project.find({ name : mapperData[i].project } )
+                //         for (var j=0; j<mapperData[i].images; j++){
+                //             var img = Image.find({ name : mapperData[i].images[j] } );
+                //             proj.images.push(img._id).save();
+                //         }
+                //         proj.populate("images").exec(function(err,proj){
+                //             if(err) return callback(err);
+                //             console.log("Project '" + proj.name + "' populated with images array.");
+                //         });
+                //     }
+                //     callback();
+                // }
                 // mappColl()
             ], function(err){
                 if(err) console.error(err);
