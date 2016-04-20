@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="db"> <!--ng-app assigns this view to an angular module, which,in this case,is defined in app.js-->
+<html lang="en" ng-app="homepage"> <!--ng-app assigns this view to an angular module, which,in this case,is defined in app.js-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,69 +35,19 @@
     </section>
     <section>
         <h1>Projects</h1>
-        <div class="container" ng-controller="ProjectController as projCtrl">
+        <div class="container" ng-controller="ProjectController">
             <div class="row">
-                <div class="col-xs-6 col-md-4 col-lg-3" ng-repeat='project in projCtrl.projects'>
+                <div class="col-xs-6 col-md-4 col-lg-3" ng-repeat='project in projects'>
                     <a href="#" class="thumbnail">
                         <div class="img-wrapper">
-                            <div class="content" id="{{project.id}}">
+                            <div class="content" id="{{project.name}}">
                                 <!--<p>This is project {{0+1}}</p>-->
-                                <h2>{{project.shortTitle}}</h2>
-                                <h3>{{project.shortDesc}}</h3>
+                                <h2>{{project.title}}</h2>
+                                <h3>{{project.city}}</h3>
                             </div>
                         </div>
                     </a>
                 </div>
-                <!--<div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj1">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj2"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj3"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj4"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj5"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj6"></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-md-4 col-lg-3">
-                    <a href="#" class="thumbnail">
-                        <div class="img-wrapper">
-                            <div class="content" id="proj7"></div>
-                        </div>
-                    </a>
-                </div>-->
             </div> <!-- end .row -->
         </div>
     </section>
@@ -108,10 +58,11 @@
     </footer>
     
     <!-- Angular -->
-    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>-->
-    <script src="../../js/angular.min.js"></script>
-    <script src="../../app.js"></script>
+    <!--<script src="../../js/angular.min.js"></script>-->
+    <script src="app.js"></script>
+    <script src="projCtrl.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

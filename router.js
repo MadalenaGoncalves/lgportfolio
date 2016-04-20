@@ -3,11 +3,15 @@ var express = require('express');
 var router = express.Router();
 
 var path = require('path');
-var C_VIEW_PATH = path.join(__dirname, "/public/static");
+var projects = require('./data/getProjects.js');
 
 router.get('/', function (req, res) {
-    res.sendFile(C_VIEW_PATH + "/index.html");
+    res.sendFile("index.html");
 });
+router.get('/data', function (req, res) {    
+    projects.getProjects(req,res);
+});
+
  
 // router.get('/home', function (req, res) {
 //   res.sendFile(C_VIEW_PATH + "/index.html");
