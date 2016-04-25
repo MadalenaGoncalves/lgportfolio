@@ -5,6 +5,6 @@ var imageSchema = mongoose.Schema({
     caption : String
 });
 
-var Images = mongoose.model('Images',imageSchema);
+var Images = mongoose.model('images',imageSchema);
 
 module.exports = Images;

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var ImgModel = require('./images.js');
-var ImgSchema = mongoose.model('Images').schema;
+var ImgSchema = mongoose.model('images').schema;
 
 // Schema declaration
 var projectSchema = mongoose.Schema({
@@ -22,7 +22,7 @@ var projectSchema = mongoose.Schema({
     company       : String,
     companyUrl    : String,
     participation : String,
-    images        : [{ type: Schema.Types.ObjectId, ref: 'Images' }]
+    images        : [{ type: Schema.Types.ObjectId, ref: 'images' }]
 });
 
 // Behavior - NOTE: methods must be added to the schema before compiling it with mongoose.model()
@@ -35,6 +35,6 @@ var projectSchema = mongoose.Schema({
 //   console.log(greeting);
 // }
 
-var Projects = mongoose.model('Projects',projectSchema);
+var Projects = mongoose.model('projects',projectSchema);
 
 module.exports = Projects;
