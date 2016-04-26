@@ -36,23 +36,12 @@
     <section>
         <div ng-controller="ProjectController">
             <h1>Projects 
-                <!--<button style="font-size:10px" class="glyphicon glyphicon-refresh" ng-click="reset()"></button>-->
                 <button type="button" class="btn btn-default btn-circle" ng-click="reset()">
                     <i class="glyphicon glyphicon-refresh"></i>
                 </button>
             </h1>
             <div class="container">
-                <div class="row">
-                    <div class="col-xs-6 col-md-4 col-lg-3" ng-repeat='project in projects'>
-                        <a href="#" class="thumbnail">
-                            <div class="img-wrapper">
-                                <div class="content" id="{{project.name}}">
-                                    <h5>{{project.title}}</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div> <!-- end .row -->
+                <div ng-view></div> <!-- ng-view linking to projectsGrid template -->
             </div>
         </div>
     </section>
@@ -67,6 +56,7 @@
     
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
     <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>-->
     <!--<script src="../../js/angular.min.js"></script>-->
     <script src="app.js"></script>
