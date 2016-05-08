@@ -1,5 +1,5 @@
 var mongoose = require( 'mongoose' );
-require( './../db/models/projects.js' );
+require( './../models/projects.js' );
 var Project = mongoose.model( 'projects' );
 
 exports.getProjects = function(req,resp){

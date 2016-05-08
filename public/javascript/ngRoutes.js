@@ -1,9 +1,10 @@
 angular.module('homepage').config(function($routeProvider) {
-    $routeProvider.when('/data', {
-        templateUrl: '/templates/projectsGrid/index.html'
+    $routeProvider
+    .when('/data', {
+        templateUrl: '/templates/project-grid/index.html'
     })
     .when('/', {
-        templateUrl: '/templates/projectsGrid/index.html'
+        templateUrl: '/templates/project-grid/index.html'
     })
     .otherwise({ redirectTo: '/' });
 });

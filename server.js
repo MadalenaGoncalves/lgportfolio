@@ -2,29 +2,21 @@
 var express = require('express'),
     path    = require('path'),
     http    = require('http'),
-    // bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     databaseName = 'lgportfolio';
-// var engine  = require('ejs-locals');
-// var querystring = require('querystring'); 
 
 // Server setup
 var app = express();
 app.set( 'port', process.env.PORT || 3000 );
-// app.use(bodyParser.json());                          // parse application/json
-// app.use(bodyParser.urlencoded({extended:true}));     // parse application/x-www-form-urlencoded
-    // app.engine( 'ejs', engine );
-    // app.set( 'views', path.join( __dirname, 'public' ));
-    // app.set( 'view engine', 'ejs' );
 
 // Routers
 var routes = require('./router');
 app.use(express.static(__dirname)); // static path to root
-app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html
+app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html and html templates
+app.use(express.static(path.join(__dirname, 'public/static/images'))); // static path to images
+app.use(express.static(path.join(__dirname, 'public/vendor'))); // static path to vendor scripts
 app.use(express.static(path.join(__dirname, 'public/javascript'))); // static path to angular controllers
-app.use(express.static(path.join(__dirname, 'data'))); // static path to queries to database
-app.use(express.static(path.join(__dirname, 'db/resetData'))); // static path to reset the database
-app.use(express.static(path.join(__dirname, 'db/models'))); // static path to database models
+app.use(express.static(path.join(__dirname, 'db')));      // static path to database queries and models
 app.use('/',routes);
 app.use(function(req, res, next) {
     console.log('404 - Client tried to get [' + req.url + ']');

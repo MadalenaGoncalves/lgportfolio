@@ -1,0 +1,25 @@
+<!--<div class="row">
+    <div class="col-xs-6 col-md-4 col-lg-3" ng-repeat='project in projects'>
+        <a href="#" class="thumbnail">
+            <div class="img-wrapper">
+                <div class="content" id="{{project.name}}">
+                    <h5>{{project.title}}</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>-->
+<div class="row">
+    <div class="col-xs-6 col-md-4 col-lg-3" ng-repeat="project in projects">
+        <a href="#" class="portfolio-box">
+            <img src="thumbnails/{{project.name}}.png" class="img-responsive" alt="" id="{{project.name}}">
+            <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                    <div class="project-name">
+                        <h5>{{project.title}}</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

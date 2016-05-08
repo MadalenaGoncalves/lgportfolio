@@ -1,8 +1,20 @@
 /* my_display: 1245px */
 /* target / context(=1245) = result */
-section{
-    /*border: 1px solid green;*/
+
+body, html {
+    min-height: 100%;
+    /*color: #595959;*/
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #8CA6A9;
+    text-align: center;
+    background-color: #E1E5E5;
+    /*line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;*/
 }
+
+
 .container{
     /*border: 1px solid brown;*/
     box-sizing: content-box;
@@ -24,9 +36,9 @@ section{
     
 }*/
 [class*="col-"] { 
-    border: none;
+    /*border: none;*/
 }
-.thumbnail{
+/*.thumbnail{
     text-align: center;
     border: none;
 }
@@ -40,7 +52,7 @@ section{
     padding-top: 100%;
 }
 .content{
-	/*border: 1px solid green;*/
+	border: 1px solid green;
     position: absolute;
 	top: 0;
 	left: 0;
@@ -92,7 +104,7 @@ section{
 }
 .content#proj7:hover{
     background-position: -1255px -200px;
-}
+}*/
 
 .btn-circle {
   width: 30px;
@@ -102,4 +114,84 @@ section{
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
+}
+
+section{
+    padding: 32px 0;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.light-blue-bg{
+    background-color: #27586B;
+}
+.dark-blue-bg{
+    background-color: #022735;
+    color: #6C797B;
+}
+/*h4{
+    font-weight: 500;
+    line-height: 1.1;
+}*/
+
+/* FOOTER */
+footer{
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+.footer-container{
+    margin-left: auto;
+    margin-right: auto;
+}
+widget-wrap{
+    margin-bottom: 20px;
+}
+.widget-wrap h4 {
+    margin-bottom: 40px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #6C797B;
+    text-align: center;
+}
+.widget-about{
+    text-align: justify;
+    margin-bottom: 50px;
+}
+.contact-form{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px; 
+    background-color: #E1E5E5;
+    border: none;
+    border-radius: 4px;
+    color: #E1E5E5;
+}
+.contact-form:hover{
+    background-color: #6C797B;
+}
+
+textarea.contact-form{
+    height: 95px;
+}
+
+button.contact-form{
+    color: #6C797B;
+}
+button.contact-form:hover,
+button.contact-form:focus{
+    color: #8CA6A9;
+}
+
+/* CHANGES IN BOOTSTRAP DEFAULTS */
+.gutter-80.row {
+    margin-right: -40px;
+    margin-left: -40px;
+}
+.gutter-80 > [class^="col-"],
+.gutter-80 > [class^=" col-"] {
+    padding-right: 40px;
+    padding-left: 40px;
+}
+.vertical-gutter-5 > [class^="col-"],
+.vertical-gutter-5 > [class^=" col-"] {
+    margin-bottom: 5px;
 }

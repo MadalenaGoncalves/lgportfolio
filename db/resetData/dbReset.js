@@ -11,7 +11,7 @@ var async = require('async'),
 var Image = mongoose.model( 'images' );
 var Project = mongoose.model( 'projects' );
 
-exports.reset = function(req,resp){
+exports.reset = function(req,resp,resetCallback){
     async.series(
         [
             function(callback){
@@ -78,5 +78,6 @@ exports.reset = function(req,resp){
         ], function(err){
             if(err) console.error(err);
             console.log("Database data has been reseted");
+            resetCallback();
     });
 }
