@@ -37,7 +37,7 @@ app.use(function (req, res, next) {
 // create connection to database
 // mongoose.connect('mongodb://localhost/lgportfoliodb');
 // mongoose.connect('mongodb://localhost/lgportfoliodb');
-mongoose.connect('mongodb://Cheetara63:1234rewq@ds015774.mlab.com:15774/lgportfolio');
+mongoose.connect('mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // create http server
