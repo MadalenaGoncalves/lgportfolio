@@ -3,9 +3,9 @@
 
 /*declare variables*/
 :root{
-  --main-bg-color:  #E1E5E5;
+  --main-bg-color:  #F3F6FC;
   /*--sec-bg-color: #27526B;*/
-  --sec-bg-color: #F3F6FC;
+  --sec-bg-color: #E1E5E5;
   --thumbnail-color: #484848;
   --footer-bg-color: #484848;
   /*--footer-bg-color: #022735;*/
@@ -68,9 +68,7 @@ aside {
 /* ********************************************** */
 /* ***************** PORTFOLIO ****************** */
 /* ********************************************** */
-.navbar {
-    height: 28%;
-}
+
 .portfolio {
     height: 70%;
 }

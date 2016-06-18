@@ -1,0 +1,28 @@
+<div class="container-fluid">
+<h4>{{project.title}}</h4>
+  <div class="row">
+    <div class="col-sm-3">
+        <a href="#details" data-toggle="collapse">Click Me</a>
+        <div id="details" class="collapse in">
+            <p>Category: {{project.category}}</p>
+            <p>Location: {{project.address}} - {{project.city}} - {{project.country}}</p>
+            <p>Date: {{project.startYear}} - {{project.endYear}}</p>
+            <p>Gross area: {{project.grossArea}}</p>
+            <p>Floor area: {{project.floorArea}}</p>
+            <p>Description: {{project.description}}</p>
+            <p>Company: <a href="{{project.companyUrl}}">{{project.company}}</a></p>
+            <p>Participation: {{project.participation}}</p>
+        </div>
+    </div>
+    <div class="col-sm-1" style="border-left:1px solid black"></div>
+    <div class="col-sm-7">
+        <div class="row">
+            <div class="col-xs-12" ng-repeat="image in project.images">
+                <img src="/images/portfolio/{{image.name}}.png" class="img-responsive" alt="" id="{{image.name}}">
+                <p style="text-align: justify">{{image.caption}}</p>
+                <br/>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

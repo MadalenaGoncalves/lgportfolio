@@ -1,18 +1,17 @@
 var express = require('express');
 var router = express.Router();
-// var path = require('path');
 
 var portfolio = require('./data/api/loadPortfolio.js');
 var dbreset = require('./data/resetData/dbReset.js');
 var project = require('./data/api/loadProject.js');
 
-router.get('/', function (req, res) {
-    console.log("@router.js : get('/')");
-    res.sendFile("index.html");
-});
+// router.get('/', function (req, res) {
+//     console.log("@router.js : get('/')");
+//     res.sendFile("index.html");
+// });
 
-router.get('/data', function (req, res) {
-    console.log("@router.js : get('/data')");
+router.get('/home', function (req, res) {
+    console.log("@router.js : get('/home')");
     portfolio.loadPortfolio(req, res);
 });
 
@@ -23,9 +22,9 @@ router.get('/reset', function (req, res) {
     });
 });
 
-router.get('/p/:name', function (req, res) {
-    console.log("@router.js : get('/p/" + req.params.name + "')");
-    project.loadProject(req, res, req.params.name);
+router.get('/projects/:name', function (req, res) {
+    console.log("@router.js : get('projects/" + req.params.name + "') OK");
+    project.loadProject(req,res);
 });
 
 module.exports = router;

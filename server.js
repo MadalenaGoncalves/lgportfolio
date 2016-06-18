@@ -11,11 +11,12 @@ app.set('port', process.env.PORT || 3000);
 
 // Routers
 app.use(express.static(__dirname)); // static path to root
-app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html and html templates
+app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html and other  views
 app.use(express.static(path.join(__dirname, 'public/static/images'))); // static path to images
 app.use(express.static(path.join(__dirname, 'public/vendor'))); // static path to vendor scripts
-app.use(express.static(path.join(__dirname, 'public/javascript'))); // static path to angular controllers
+app.use(express.static(path.join(__dirname, 'public/js'))); // static path to angular controllers
 app.use(express.static(path.join(__dirname, 'data')));      // static path to database queries and models
+// app.use('/partials', express.static(__dirname + '/app/partials')); ---> exemplo
 var routes = require('./router');
 app.use('/', routes);
 app.use(function (req, res, next) {
@@ -34,7 +35,9 @@ app.use(function (req, res, next) {
 // app.use( express.errorHandler());
 
 // create connection to database
-mongoose.connect('mongodb://localhost/lgportfoliodb');
+// mongoose.connect('mongodb://localhost/lgportfoliodb');
+// mongoose.connect('mongodb://localhost/lgportfoliodb');
+mongoose.connect('mongodb://Cheetara63:1234rewq@ds015774.mlab.com:15774/lgportfolio');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // create http server
