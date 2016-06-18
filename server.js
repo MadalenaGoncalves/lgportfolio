@@ -18,6 +18,10 @@ app.use(express.static(path.join(__dirname, 'public/js'))); // static path to an
 app.use(express.static(path.join(__dirname, 'data')));      // static path to database queries and models
 // app.use('/partials', express.static(__dirname + '/app/partials')); ---> exemplo
 var routes = require('./router');
+// app.all('/*', function(req, res, next) {
+//     // Just send the index.html for other files to support HTML5Mode
+//     res.sendFile('/public/static/index.html', { root: __dirname });
+// });
 app.use('/', routes);
 app.use(function (req, res, next) {
     console.log('404 - Client tried to get [' + req.url + ']');
@@ -35,9 +39,8 @@ app.use(function (req, res, next) {
 // app.use( express.errorHandler());
 
 // create connection to database
-// mongoose.connect('mongodb://localhost/lgportfoliodb');
-// mongoose.connect('mongodb://localhost/lgportfoliodb');
-mongoose.connect('mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio');
+mongoose.connect('mongodb://localhost/lgportfoliodb');
+// mongoose.connect('mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // create http server

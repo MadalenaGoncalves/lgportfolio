@@ -2,8 +2,14 @@
 
 var app = angular
   .module('homePage', ['ngRoute'])
-  .config(['$routeProvider', '$locationProvider', function ($routeProvider,$locationProvider) {
-    $locationProvider.html5Mode(true);
+  .config(['$routeProvider', function ($routeProvider) {
+  // .config(['$routeProvider', '$locationProvider','$provide', function ($routeProvider,$locationProvider,$provide) {
+    // $provide.decorator('$sniffer', ['$delegate', function($delegate) {
+    //   $delegate.history = true;
+    //   return $delegate;
+    // }]);
+    // $locationProvider
+    //   .html5Mode(true);
     $routeProvider
       .when('/home', {
         templateUrl: '/views/portfolio/index.html',
