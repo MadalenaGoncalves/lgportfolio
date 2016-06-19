@@ -1,7 +1,7 @@
 // var app = angular.module('homepage', ['ngRoute']);
 
 var app = angular
-  .module('homePage', ['ngRoute'])
+  .module('homePage', ['ngRoute','ngMessages'])
   .config(['$routeProvider', function ($routeProvider) {
   // .config(['$routeProvider', '$locationProvider','$provide', function ($routeProvider,$locationProvider,$provide) {
     // $provide.decorator('$sniffer', ['$delegate', function($delegate) {

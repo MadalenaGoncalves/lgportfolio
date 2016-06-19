@@ -3,7 +3,7 @@ require('./../models/projects.js');
 var Project = mongoose.model('projects');
 
 exports.loadProject = function (req, resp) {
-    console.log("@loadProject.js : " + req.params.name);
+    // console.log("@loadProject.js : " + req.params.name);
     var queryFind = Project.findOne({ 'name': req.params.name })
     .populate('images')
     .exec(function (err, docs) {

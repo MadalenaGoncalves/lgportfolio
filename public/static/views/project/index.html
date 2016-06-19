@@ -18,7 +18,7 @@
     <div class="col-sm-7">
         <div class="row">
             <div class="col-xs-12" ng-repeat="image in project.images">
-                <img src="/images/portfolio/{{image.name}}.png" class="img-responsive" alt="" id="{{image.name}}">
+                <img ng-src="/images/portfolio/{{image.name}}.png" class="img-responsive" alt="" id="{{image.name}}">
                 <p style="text-align: justify">{{image.caption}}</p>
                 <br/>
             </div>

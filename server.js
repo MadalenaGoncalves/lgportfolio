@@ -1,5 +1,6 @@
 // Initialization of the express framework
 var express = require('express'),
+    favicon = require('serve-favicon'),
     path = require('path'),
     http = require('http'),
     mongoose = require('mongoose'),
@@ -8,9 +9,10 @@ var express = require('express'),
 // Server setup
 var app = express();
 app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname)); // static path to root
+app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
 
 // Routers
-app.use(express.static(__dirname)); // static path to root
 app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html and other  views
 app.use(express.static(path.join(__dirname, 'public/static/images'))); // static path to images
 app.use(express.static(path.join(__dirname, 'public/vendor'))); // static path to vendor scripts
@@ -29,7 +31,6 @@ app.use(function (req, res, next) {
 });
 
 // Other middleware
-// app.use( express.favicon());
 // app.use( express.logger( 'dev' ));
 // app.use( express.cookieParser()); // use express cookies to recognize users
 // app.use( express.bodyParser()); // add this before app.use( express.json() );
