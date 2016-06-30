@@ -29,7 +29,7 @@ router.get('/projects/:name', function (req, res) {
 });
 
 router.post('/contacts', function(req, res){
-    contactFormHandler.sendMail();
+    contactFormHandler.sendMail(req, res);
 });
 
 module.exports = router;

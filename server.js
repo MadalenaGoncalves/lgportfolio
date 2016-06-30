@@ -1,16 +1,19 @@
 // Initialization of the express framework
 var express = require('express'),
+    bodyParser = require('body-parser'),
     favicon = require('serve-favicon'),
     path = require('path'),
     http = require('http'),
     mongoose = require('mongoose'),
     databaseName = 'lgportfolio';
 
-// Server setup
+// Server setup and middleware
 var app = express();
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname)); // static path to root
 app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routers
 app.use(express.static(path.join(__dirname, 'public/static'))); // static path to index.html and other  views
@@ -33,9 +36,6 @@ app.use(function (req, res, next) {
 // Other middleware
 // app.use( express.logger( 'dev' ));
 // app.use( express.cookieParser()); // use express cookies to recognize users
-// app.use( express.bodyParser()); // add this before app.use( express.json() );
-// app.use( require('express-json'));
-// app.use( express.urlencoded());
 // app.use( express.methodOverride());
 // app.use( express.errorHandler());
 
