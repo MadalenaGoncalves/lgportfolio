@@ -12,6 +12,8 @@
   
   --main-font-color: #8CA6A9;
   --footer-font-color: #6C797B;
+  --link-bg-color: rgba(240,95,64,.9);
+  --link-color: #eb3812;
 }
 
 html,
@@ -44,7 +46,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #eb3812;
+    color: var(--link-color);
 }
 
 p {
@@ -77,8 +79,8 @@ aside {
     position: relative;
     margin: 0 auto;
     max-width: 200px;
-    border: 1px solid var(--footer-bg-color);
-    border-radius: 4px;
+    /*border: 1px solid var(--footer-bg-color);*/
+    /*border-radius: 4px;*/
     margin-top: 20px;
     margin-bottom: 20px; 
 }
@@ -92,7 +94,8 @@ aside {
     text-align: center;
     color: #fff;
     opacity: 0;
-    background: rgba(240,95,64,.9);
+    /*background: rgba(240,95,64,.9);*/
+    background: var(--link-bg-color);
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -123,6 +126,8 @@ aside {
 
 .portfolio-box:hover .portfolio-box-caption {
     opacity: 1;
+    border: 1px solid var(--link-bg-color);
+    border-radius: 4px;
 }
 
 @media(min-width:768px) {
