@@ -25,17 +25,17 @@
 	padding: 0;
 }
 
-html {
-    /*height: 100%;*/
-}
-
 body {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
     font-family: "Quicksand", sans-serif;
 	font-size: 16px;
     height: auto;
+    border: 1px solid green;
+    padding-top: 50px;
 }
+
+body 
 
 /* ********************************************** */
 /* ******************* NAVBAR ******************* */
@@ -44,14 +44,24 @@ body {
 	background-color: #E1E5E5;
 }
 
+
 .navbar .navbar-brand h1{
     padding: 0;
-    line-height: 14px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .navbar .nav {
     padding: 0;
     margin: 0 -15px;
+}
+
+@media(min-width:480px) {
+    .navbar .navbar-brand h1 {
+        line-height: 14px;
+        font-size: 36px;
+        font-weight: normal;
+    }
 }
 
 @media(min-width:768px) {
@@ -90,9 +100,7 @@ body {
 /* ******************** MAIN ******************** */
 /* ********************************************** */
 main {
-    min-height: calc(100% - 30px);
-    height: auto;
-    z-index: 9999;
+    /*height: auto;*/
     /*margin-top: -86px;*/
     /*margin-bottom: -86px;*/
     /*margin: 0 auto -106px;*/
