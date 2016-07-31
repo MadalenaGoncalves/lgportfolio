@@ -10,7 +10,7 @@
   --main-font-color: #8CA6A9;
   --footer-font-color: #6C797B;
   --link-bg-color: rgba(240,95,64,.9);
-  --link-color: #eb3812;
+  --link-font-color: #F3F6FC;
 
   --drawer-width: 450px;
   --drawer-width-neg: -450px;
@@ -25,23 +25,24 @@
 	padding: 0;
 }
 
-body {
+html, body {
+    height: 100%;
     background-color: var(--main-bg-color);
+}
+
+body {
     color: var(--main-font-color);
     font-family: "Quicksand", sans-serif;
 	font-size: 16px;
-    height: auto;
-    border: 1px solid green;
-    padding-top: 50px;
+    padding-top: 51px;
 }
-
-body 
 
 /* ********************************************** */
 /* ******************* NAVBAR ******************* */
 /* ********************************************** */
 .navbar-default {
 	background-color: #E1E5E5;
+	color: rgb(119,119,119);
 }
 
 
@@ -57,6 +58,7 @@ body
 }
 
 @media(min-width:480px) {
+    
     .navbar .navbar-brand h1 {
         line-height: 14px;
         font-size: 36px;
@@ -66,7 +68,7 @@ body
 
 @media(min-width:768px) {
     body {
-        padding-top: 140px; 
+        padding-top: 81px; 
     }
     
    .navbar .navbar-brand h1{
@@ -85,10 +87,8 @@ body
     }
 }
 
-.navbar-default .nav > li > a:hover, 
-.navbar-default .nav > li > a:focus {
-	background-color: rgba(240,95,64,.9);
-	color: #F3F6FC;
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
 }
 
 .navbar .navbar-brand h1 {
@@ -96,29 +96,26 @@ body
 	color: rgb(119,119,119);
 }
 
+.navbar-default .navbar-nav > li > a:focus {
+    color: rgb(119,119,119);
+}
+
+.navbar-default .nav > li > a:hover {
+	background-color: var(--link-bg-color);
+	color: var(--link-font-color);
+}
+
 /* ********************************************** */
 /* ******************** MAIN ******************** */
 /* ********************************************** */
 main {
-    /*height: auto;*/
-    /*margin-top: -86px;*/
-    /*margin-bottom: -86px;*/
-    /*margin: 0 auto -106px;*/
-}
-
-/* ********************************************** */
-/* ******************* FOOTER ******************* */
-/* ********************************************** */
-footer {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-font-color);
-    text-align: center;
-    width: 100%;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    /*height: 64px;*/
-    /*margin-top: 20px;*/
-    margin-bottom: 0;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    padding-top: 51px;
+    padding-bottom: 100px;
+    margin: 0 auto -50px;
+    /*overflow-y: auto;*/
 }
 
 /* ********************************************** */
@@ -300,6 +297,24 @@ section#sec-project {
 }
 
 /* ********************************************** */
+/* ************** ABOUT / CONTACT *************** */
+/* ********************************************** */
+.about .container,
+.contact .container  {
+    width: 67%;
+    margin: 50px auto;
+    padding: 0;
+    text-align: justify;
+}
+
+@media(min-width:768px) {
+    .about .container,
+    .contact .container  {
+        margin: 0 auto;
+    }
+}
+
+/* ********************************************** */
 /* **************** CONTACT FORM **************** */
 /* ********************************************** */
 .contact-form {
@@ -335,6 +350,18 @@ button.contact-form:focus {
     background: rgba(210,95,64,.9);
 }
 
+/* ********************************************** */
+/* ******************* FOOTER ******************* */
+/* ********************************************** */
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-font-color);
+    text-align: center;
+    width: 100%;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    height: 84px;
+}
 
 /* ********************************************** */
 /* ******* CHANGES IN BOOTSTRAP DEFAULTS ******** */
