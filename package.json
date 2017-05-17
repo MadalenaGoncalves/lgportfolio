@@ -10,23 +10,33 @@
   "engines": {
     "node": "6.2.2"
   },
-  "dependencies": {
-    "angular-material": "^1.1.0-rc.5",
-    "angular-messages": "^1.5.x",
-    "async": "1.5.x",
-    "body-parser": "^1.15.2",
-    "ejs": "2.4.x",
-    "ejs-locals": "1.0.x",
-    "express": "4.14.x",
-    "mongodb": "2.1.x",
-    "mongoose": "4.5.x",
-    "node-mailer": "0.1.x",
-    "serve-favicon": "^2.3.0"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build-css": "node-sass --include-path public/sass/styles.scss build/css/styles.css",
+    "sass": "node-sass -w scss/styles.scss -o build/css/",
+    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/scripts.min.js",
+    "build": "npm run build-css && npm run uglify"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.4",
+    "angular-messages": "^1.6.4",
+    "async": "^1.5.2",
+    "body-parser": "^1.17.1",
+    "ejs": "^2.4.2",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.14.1",
+    "mongodb": "^2.1.21",
+    "mongoose": "^4.5.10",
+    "node-mailer": "^0.1.1",
+    "serve-favicon": "^2.4.3"
+  },
+  "devDependencies": {
+    "node-sass": "^4.5.3",
+    "uglifyjs": "^2.4.11"
   },
   "author": "MadalenaGoncalves",
   "license": "ISC",

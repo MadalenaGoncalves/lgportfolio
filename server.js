@@ -1,17 +1,21 @@
 // Initialization of the express framework
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    favicon = require('serve-favicon'),
-    path = require('path'),
-    http = require('http'),
-    mongoose = require('mongoose'),
-    databaseName = 'lgportfolio';
+var express      = require('express'),
+    bodyParser   = require('body-parser'),
+    // favicon      = require('serve-favicon'),
+    path         = require('path'),
+    http         = require('http'),
+    mongoose     = require('mongoose');
+
+const port = process.env.PORT || 3000,
+      dbname = 'lgportfolio',
+      mongolab_uri = 'mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio';
+
 
 // Server setup and middleware
 var app = express();
-app.set('port', process.env.PORT || 3000);
+app.set('port', port);
 app.use(express.static(__dirname)); // static path to root
-app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
+// app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -40,8 +44,7 @@ app.use(function (req, res, next) {
 // app.use( express.errorHandler());
 
 // create connection to database
-// mongoose.connect('mongodb://localhost/lgportfoliodb');
-mongoose.connect('mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio');
+mongoose.connect(mongolab_uri || 'mongodb://localhost/lgportfoliodb';);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // create http server
