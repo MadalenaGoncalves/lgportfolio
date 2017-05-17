@@ -1,3 +1,5 @@
+'use strict';
+
 // Initialization of the express framework
 var express      = require('express'),
     bodyParser   = require('body-parser'),
@@ -11,9 +13,11 @@ const port = process.env.PORT || 3000,
       mongolab_uri = 'mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio';
 
 
-// Server setup and middleware
+// Server setup
 var app = express();
 app.set('port', port);
+
+// Middleware
 app.use(express.static(__dirname)); // static path to root
 // app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
 app.use(bodyParser.json());
@@ -53,3 +57,9 @@ db.once('open', function () {
         console.log('Express server listening on port ' + app.get('port'));
     })
 });
+
+// use nodemon server.js => nodemon is like browser-sync for the .js files
+// node -debug server.js => node-instpector allows debugging
+//  -- node-inspector starts the debugger
+//  -- nodemon --debug-brk server.js => allows you to run nodemon and node-inspector together (runs in a different terminal tab than node-inspector)
+//  -- we can define breakpoints in the code adding "debugger;" (that's why we need the -brk flag in the previous line)
