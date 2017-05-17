@@ -1,5 +1,11 @@
-$badass: #bada33;
-body { 
-  margin: 0; 
-  background-color: $badass; 
-}
+@import "base/variables";
+@import "base/reset";
+
+@import "components/about";
+@import "components/contact";
+@import "components/footer";
+@import "components/header";
+@import "components/home";
+@import "components/project";
+
+@import "elements/layout";

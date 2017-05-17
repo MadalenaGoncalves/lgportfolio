@@ -1,0 +1,24 @@
+.about .container,
+.contact .container  {
+    width: 95%;
+    margin: 10px auto;
+    padding: 0;
+    text-align: justify;
+    /*border: 1px solid green;*/
+}
+.contact .container  {
+    text-align: center;
+}
+
+@media(min-width:768px) {
+    .about .container  {
+        width: 67%;
+        margin: 0 auto;
+    }
+
+    .contact .container  {
+        width: 40%;
+        margin: 0 auto;
+        text-align: center;
+    }
+}

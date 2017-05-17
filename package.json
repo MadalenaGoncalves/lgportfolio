@@ -13,10 +13,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build-css": "node-sass --include-path public/sass/styles.scss build/css/styles.css",
-    "sass": "node-sass -w scss/styles.scss -o build/css/",
+    "build-css": "node-sass --output-style compressed public/sass/styles.scss -o build/css",
+    "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o build/css",
     "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/scripts.min.js",
-    "build": "npm run build-css && npm run uglify"
+    "build": "npm run sass && npm run uglify"
   },
   "dependencies": {
     "angular": "^1.6.4",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "node-sass": "^4.5.3",
-    "uglifyjs": "^2.4.11"
+    "uglify-js": "^3.0.7"
   },
   "author": "MadalenaGoncalves",
   "license": "ISC",

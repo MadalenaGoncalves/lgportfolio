@@ -1,0 +1,27 @@
+/* ********************************************** */
+/* ******* CHANGES IN BOOTSTRAP DEFAULTS ******** */
+/* ********************************************** */
+.gutter-80.row {
+    margin-right: 180px;
+    margin-left: 180px;
+}
+.gutter-80 > [class^="col-"],
+.gutter-80 > [class^=" col-"] {
+    padding-right: -180px;
+    padding-left: -180px;
+}
+.vertical-gutter-5 > [class^="col-"],
+.vertical-gutter-5 > [class^=" col-"] {
+    margin-bottom: 5px;
+}
+
+/*[class*="col-"] { }*/
+/*.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}*/

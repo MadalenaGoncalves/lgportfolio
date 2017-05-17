@@ -1,0 +1,64 @@
+.navbar-default {
+	background-color: #E1E5E5;
+	color: rgb(119,119,119);
+}
+
+
+.navbar .navbar-brand h1{
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.navbar .nav {
+    padding: 0;
+    margin: 0 -15px;
+}
+
+@media(min-width:480px) {
+    
+    .navbar .navbar-brand h1 {
+        line-height: 14px;
+        font-size: 36px;
+        font-weight: normal;
+    }
+}
+
+@media(min-width:768px) {
+    body {
+        padding-top: 81px; 
+    }
+    
+   .navbar .navbar-brand h1{
+        padding: 15px 0;
+    }
+
+    .navbar .nav {
+        padding: 15px 0;
+    }
+    
+    .navbar .nav > li {
+        margin: -15px 0;
+    }
+    .navbar .nav > li > a {
+        padding: 30px 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
+
+.navbar .navbar-brand h1 {
+	margin: 0;
+	color: rgb(119,119,119);
+}
+
+.navbar-default .navbar-nav > li > a:focus {
+    color: rgb(119,119,119);
+}
+
+.navbar-default .nav > li > a:hover {
+	background-color: $link-bg-color;
+	color: $link-font-color;
+}
