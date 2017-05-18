@@ -20,11 +20,11 @@ html(lang='en')
       
 
   body(ng-app='homePage')
-    include ./partials/_nav.jade
+    include ./partials/_nav.pug
     //- block content
     main(id='content', role='main')
       div(ng-view)
-    include ./partials/_footer.jade
+    include ./partials/_footer.pug
 
 
 
@@ -46,5 +46,5 @@ html(lang='en')
   //- script(src='bootstrap/js/bootstrap.min.js')
 
   //- Bundles defined in webpack.config.js
-  script(src='../static/js/portfolio.bundle.js');
-  script(src='../static/js/vendor.bundle.js');
+  script(src='../static/js/portfolio.bundle.js')
+  script(src='../static/js/vendor.bundle.js')

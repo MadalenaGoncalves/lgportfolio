@@ -18,7 +18,7 @@ var app = express();
 app.set('port', port);
 
 // Templates
-app.set('view engine','jade');
+app.set('view engine','pug');
 app.set('views', path.join(__dirname, '../public/templates'));
 
 // BodyParser middleware allows you to easily parse JSON objects

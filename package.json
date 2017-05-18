@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --debug-brk src/app.js",
+    "start": "nodemon src/app.js",
+    "debug": "nodemon --debug-brk src/app.js",
     "build-css": "node-sass --output-style compressed public/sass/styles.scss -o public/static/css",
     "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o public/static/css",
     "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o public/static/js/scripts.min.js",
