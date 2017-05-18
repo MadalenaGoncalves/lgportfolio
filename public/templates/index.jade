@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+  include ./partials/_head.jade
+  body(ng-app='homePage')
+	include ./partials/_nav.jade
+	block content
+	//- main(id='content' role='main')
+	//-     div ng-view
+	include ./partials/_footer.jade
+	
+	// Angular resources
+	// script(src='angular/angular.js')
+	script(src='angular/angular.min.js.map')
+	script(src='angular/angular-route.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js')
+	
+	// Bootstrap resources
+	// script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+	// script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous')
+	script(src='jquery.min.js')
+	script(src='bootstrap/js/bootstrap.min.js')
+
+	// Angular controllers
+	script(src='app.js')
+	script(src='controllers/portfolioCtrl.js')
+	// script(src='controllers/resetDBCtrl.js')
+	script(src='controllers/projectCtrl.js')
+	script(src='controllers/contactsCtrl.js')
+	

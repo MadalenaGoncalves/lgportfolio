@@ -1,49 +1,50 @@
 {
-  "name": "lgportfolio",
-  "version": "1.0.0",
-  "description": "An architect portfolio",
-  "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MadalenaGoncalves/lgportfolio.git"
-  },
-  "engines": {
-    "node": "6.2.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build-css": "node-sass --output-style compressed public/sass/styles.scss -o build/css",
-    "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o build/css",
-    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/js/scripts.min.js",
-    "build": "npm run uglify && npm run sass"
-  },
-  "dependencies": {
-    "angular": "^1.6.4",
-    "angular-animate": "^1.6.4",
-    "angular-aria": "^1.6.4",
-    "angular-material": "^1.1.4",
-    "angular-messages": "^1.6.4",
-    "async": "^1.5.2",
-    "body-parser": "^1.17.1",
-    "ejs": "^2.4.2",
-    "ejs-locals": "^1.0.2",
-    "express": "^4.14.1",
-    "mongodb": "^2.1.21",
-    "mongoose": "^4.5.10",
-    "node-mailer": "^0.1.1",
-    "serve-favicon": "^2.4.3"
-  },
-  "devDependencies": {
-    "node-inspector": "^1.1.1",
-    "node-sass": "^4.5.3",
-    "nodemon": "^1.11.0",
-    "uglify-js": "^3.0.7"
-  },
-  "author": "MadalenaGoncalves",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MadalenaGoncalves/lgportfolio/issues"
-  },
-  "homepage": "localhost/lgportfolio"
+	"name": "lgportfolio",
+	"version": "1.0.0",
+	"description": "An architect portfolio",
+	"main": "server.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MadalenaGoncalves/lgportfolio.git"
+	},
+	"engines": {
+		"node": "6.2.2"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js",
+		"build-css": "node-sass --output-style compressed public/sass/styles.scss -o build/css",
+		"sass": "node-sass -w --output-style compressed public/sass/styles.scss -o build/css",
+		"uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/js/scripts.min.js",
+		"build": "npm run uglify && npm run sass"
+	},
+	"dependencies": {
+		"angular": "^1.6.4",
+		"angular-animate": "^1.6.4",
+		"angular-aria": "^1.6.4",
+		"angular-material": "^1.1.4",
+		"angular-messages": "^1.6.4",
+		"async": "^1.5.2",
+		"body-parser": "^1.17.1",
+		"ejs": "^2.4.2",
+		"ejs-locals": "^1.0.2",
+		"express": "^4.14.1",
+		"jade": "^1.11.0",
+		"mongodb": "^2.1.21",
+		"mongoose": "^4.5.10",
+		"node-mailer": "^0.1.1",
+		"serve-favicon": "^2.4.3"
+	},
+	"devDependencies": {
+		"node-inspector": "^1.1.1",
+		"node-sass": "^4.5.3",
+		"nodemon": "^1.11.0",
+		"uglify-js": "^3.0.7"
+	},
+	"author": "MadalenaGoncalves",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MadalenaGoncalves/lgportfolio/issues"
+	},
+	"homepage": "localhost/lgportfolio"
 }
