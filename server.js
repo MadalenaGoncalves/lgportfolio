@@ -48,7 +48,7 @@ app.use(function (req, res, next) {
 // app.use( express.errorHandler());
 
 // create connection to database
-mongoose.connect(mongolab_uri || 'mongodb://localhost/lgportfoliodb';);
+mongoose.connect(mongolab_uri || 'mongodb://localhost/lgportfoliodb');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // create http server

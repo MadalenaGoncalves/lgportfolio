@@ -15,8 +15,8 @@
     "start": "node server.js",
     "build-css": "node-sass --output-style compressed public/sass/styles.scss -o build/css",
     "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o build/css",
-    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/scripts.min.js",
-    "build": "npm run sass && npm run uglify"
+    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/js/scripts.min.js",
+    "build": "npm run uglify && npm run sass"
   },
   "dependencies": {
     "angular": "^1.6.4",
