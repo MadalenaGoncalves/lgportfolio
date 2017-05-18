@@ -1,0 +1,23 @@
+section.contact
+  .container(ng-controller="ContactsController")
+    form(name="contactForm", ng-submit="submit()", novalidate)
+      fieldset
+        input.contact-form(type="text", name="name", ng-model="name", placeholder="NAME", required, 
+            ng-class="{ 'has-error': contactForm.name.$dirty && contactForm.name.$invalid }")
+        div(ng-messages="contactForm.name.$error" ng-show="contactForm.name.$dirty && contactForm.name.$error")
+          p(ng-message="required")
+            Your name is required.
+
+        input.contact-form(type="email", name="email", ng-model="email", placeholder="E-MAIL", required, 
+            ng-class="{ 'has-error': contactForm.email.$dirty && contactForm.email.$invalid }")
+        div(ng-messages="contactForm.email.$error", ng-show="contactForm.email.$dirty && contactForm.email.$error")
+          p(ng-message="email")Your e-mail is not valid.
+          p(ng-message="required")Your e-mail is required.
+
+        textarea.contact-form(type="text", name="message", ng-model="message", placeholder="MESSAGE" required, ng-class="{ 'has-error': contactForm.message.$dirty && contactForm.message.$invalid }")
+        div(ng-messages="contactForm.message.$error", ng-show="contactForm.message.$dirty && contactForm.message.$error")
+          p(ng-message="required")
+            Please write a message.
+        
+        button(class="md-primary contact-form" type="submit", ng-disabled="contactForm.$invalid")
+          SEND

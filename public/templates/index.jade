@@ -1,34 +1,50 @@
 doctype html
 html(lang='en')
-  include ./partials/_head.jade
-  body(ng-app='homePage')
-	include ./partials/_nav.jade
-	block content
-	//- main(id='content' role='main')
-	//-     div ng-view
-	include ./partials/_footer.jade
-	
-	// Angular resources
-	// script(src='angular/angular.js')
-	script(src='angular/angular.min.js.map')
-	script(src='angular/angular-route.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.js')
-	script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js')
-	
-	// Bootstrap resources
-	// script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
-	// script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous')
-	script(src='jquery.min.js')
-	script(src='bootstrap/js/bootstrap.min.js')
+  head
+  title LuGo
 
-	// Angular controllers
-	script(src='app.js')
-	script(src='controllers/portfolioCtrl.js')
-	// script(src='controllers/resetDBCtrl.js')
-	script(src='controllers/projectCtrl.js')
-	script(src='controllers/contactsCtrl.js')
-	
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+
+  link(rel='icon', href='/images/favicon.ico', type='image/x-icon')
+  //- link(rel='stylesheet', type='text/css', href='node_modules/angular_material/angular-material.min.css')
+  //- link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Quicksand')
+  //- link(rel='stylesheet', type='text/css', href='/css/styles.css')
+  
+  // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+  // WARNING: Respond.js doesn't work if you view the page via file:
+  // if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+      
+
+  body(ng-app='homePage')
+    include ./partials/_nav.jade
+    //- block content
+    main(id='content', role='main')
+      div(ng-view)
+    include ./partials/_footer.jade
+
+
+
+  //- Angular resources
+  //- script(src='angular/angular.min.js')
+  //- script(src='angular-animate/angular-animate.min.js')
+  //- script(src='angular-aria/angular-aria.min.js')
+  //- script(src='angular-material/angular-material.min.js')
+  //- script(src='angular-messages/angular-messages.min.js')
+  //- script(src='angular-route/angular-route.min.js')
+  
+  //- JQuery
+  //- script(src='jquery/dist/jquery.min.js')
+
+  //- Bootstrap resources
+  //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+  //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous')
+  //- script(src='jquery.min.js')
+  //- script(src='bootstrap/js/bootstrap.min.js')
+
+  //- Bundles defined in webpack.config.js
+  script(src='../static/js/portfolio.bundle.js');
+  script(src='../static/js/vendor.bundle.js');
