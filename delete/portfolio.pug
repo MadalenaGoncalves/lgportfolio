@@ -1,0 +1,12 @@
+section.portfolio
+  //- div(class='row no-gutter')
+  div(class='row gutter-80')
+    div(class='col-xs-6 col-md-4 col-lg-3 gutter-80', ng-repeat='project in projects')
+      a(class='portfolio-box', href='/#/projects/{{project.name}}' title='{{project.title}}')
+        img(class='img-responsive', 'ng-src='/thumbnails/{{project.name}}.png' alt='' id='{{project.name}}')
+        div(class='portfolio-box-caption')
+          div(class='portfolio-box-caption-content')
+            div(class='project-category text-faded')
+              {{project.title}}
+            //- div.project-name
+            //-     {{project.title}}

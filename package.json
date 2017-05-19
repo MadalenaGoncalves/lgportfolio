@@ -12,12 +12,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js",
-    "debug": "nodemon --debug-brk src/app.js",
+    "test-build": "webpack",
+    "build": "webpack --optimize-minimize",
+    "start": "webpack-dev-server",
+    "debug": "nodemon --debug-brk src/server.js",
     "build-css": "node-sass --output-style compressed public/sass/styles.scss -o public/static/css",
     "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o public/static/css",
-    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o public/static/js/scripts.min.js",
-    "build": "npm run uglify && npm run sass"
+    "uglify": "uglifyjs public/js/app.js public/js/controllers/* -m -c -o public/static/js/scripts.min.js"
   },
   "dependencies": {
     "angular": "^1.6.4",
@@ -37,11 +38,16 @@
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
+    "css-loader": "^0.28.1",
+    "img-loader": "^2.0.0",
     "node-inspector": "^1.1.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
-    "uglify-js": "^3.0.7",
-    "webpack": "^2.5.1"
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.17.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "author": "MadalenaGoncalves",
   "license": "ISC",

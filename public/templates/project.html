@@ -1,0 +1,68 @@
+<div class="container-fluid" class="no-padding" id="sec-project">
+
+  <input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+  <label for="drawer-toggle" id="drawer-toggle-label"></label>
+  <!--<header>Details</header>-->
+
+  <div id="drawer">
+    <div id="details" class="collapse in">
+      <p ng-if='project.category'>
+        <b>Category</b><br> 
+        {{project.category}}
+      </p>
+      
+      <p ng-if='project.address || project.city || project.country'>
+        <b>Location</b><br>
+        {{project.address}} 
+        <span ng-if='project.address && (project.city || project.country)'>- </span>
+        {{project.city}} 
+        <span ng-if='project.city && project.country'>- </span>
+        {{project.country}}
+      </p>
+      
+      <p ng-if='project.startYear || project.endYear'>
+        <b>Date</b><br>
+        {{project.startYear}} - {{project.endYear}}
+      </p>
+      
+      <p ng-if='project.grossArea'>
+        <b>Gross area</b><br>
+        {{project.grossArea}}
+      </p>
+      
+      <p ng-if='project.floorArea'>
+        <b>Floor area</b><br>
+        {{project.floorArea}}
+      </p>
+      
+      <p ng-if='project.description'>
+        <b>Description</b><br>
+        {{project.description}}
+      </p>
+      
+      <p ng-if='project.companyUrl'>
+        <b>Company</b><br>
+        <a href="{{project.companyUrl}}" target="_blank" title="change this title">{{project.company}}</a>
+      </p>
+      
+      <p ng-if='project.participation'>
+        <b>Participation</b><br>
+        {{project.participation}}
+      </p>
+
+    </div>
+  </div>
+
+  <div id="page-content">
+    <h3>{{project.title}}</h3>
+    <div class="row" id="page-content">
+      <div class="col-xs-12" ng-repeat="image in project.images">
+        <img ng-src="/images/portfolio/{{image.name}}.png" class="img-responsive" alt="" id="{{image.name}}">
+        <p style="text-align: justify">{{image.caption}}
+        </p>
+        <br/>
+      </div>
+    </div>
+  </div>
+
+</div>

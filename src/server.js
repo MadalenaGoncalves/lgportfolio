@@ -18,8 +18,8 @@ var app = express();
 app.set('port', port);
 
 // Templates
-app.set('view engine','pug');
-app.set('views', path.join(__dirname, '../public/templates'));
+// app.set('view engine','html');
+// app.set('views', path.join(__dirname, '../public/templates'));
 
 // BodyParser middleware allows you to easily parse JSON objects
 app.use(bodyParser.json());
@@ -30,18 +30,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes to static files
 //   Namespace: root
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../public/templates')));
-app.use(express.static(path.join(__dirname, '../public/static/images')));
-
 
 // Routes to non-static files
 //   Namespace: api
 // app.use(express.static(path.join(__dirname, 'src')));
-var routes = require('./api/router');
+var routes = require('./router');
 // defines a diferent namespace (/api) for our api routes, instead of using the same namespace of the static files
 //   in the router.js file, all the routes are created from the same express.Router object
 // app.use('/api', routes);  // mounts the router to the "api" url
 app.use('/', routes);
+
 // app.all('/*', function(req, res, next) {
 //     // Just send the index.html for other files to support HTML5Mode
 //     res.sendFile('/public/static/index.html', { root: __dirname });

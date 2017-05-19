@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose');
 require('./../models/projects.js');
 var Project = mongoose.model('projects');
@@ -7,7 +9,10 @@ exports.loadProject = function (req, resp) {
     var queryFind = Project.findOne({ 'name': req.params.name })
     .populate('images')
     .exec(function (err, docs) {
-        if(err) console.error(err);
+        if(err) {
+          // Issue Internal Server Error
+          return res.stats(500).json({message: err.message});
+        }
         resp.json(docs);
     });
 }

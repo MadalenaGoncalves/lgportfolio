@@ -1,3 +1,5 @@
+'use strict';
+
 var nodemailer = require('nodemailer');
 
 exports.sendMail = function(req, res) {
@@ -12,8 +14,9 @@ exports.sendMail = function(req, res) {
     };
     
     transporter.sendMail(mailOptions, function(error, info){
-        if(error) {
-            return console.log(error);
+        if(err) {
+          // Issue Internal Server Error
+          return res.stats(500).json({message: err.message});
         }
         console.log('Message sent: ' + info.response);
         res.json(req.body);

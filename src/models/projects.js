@@ -1,7 +1,9 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
-var ImgModel = require('./images.js');
-var ImgSchema = mongoose.model('images').schema;
+'use strict';
+
+const mongoose = require('mongoose'),
+        Schema = mongoose.Schema,
+      ImgModel = require('./images.js'),
+     ImgSchema = mongoose.model('images').schema;
 
 // Schema declaration
 var projectSchema = mongoose.Schema({
@@ -36,5 +38,4 @@ var projectSchema = mongoose.Schema({
 // }
 
 var Projects = mongoose.model('projects',projectSchema);
-
 module.exports = Projects;

@@ -19,11 +19,15 @@ html(lang='en')
     script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
       
 
-  body(ng-app='homePage')
+  body('ng-app'='architectureportfolio')
     include ./partials/_nav.pug
     //- block content
     main(id='content', role='main')
-      div(ng-view)
+      //- div(ng-view)
+      //- include ./about.pug --> OK
+      //- include ./portfolio.pug
+      //- include ./project.pug
+      include ./contacts.pug
     include ./partials/_footer.pug
 
 
@@ -46,5 +50,6 @@ html(lang='en')
   //- script(src='bootstrap/js/bootstrap.min.js')
 
   //- Bundles defined in webpack.config.js
-  script(src='../static/js/portfolio.bundle.js')
-  script(src='../static/js/vendor.bundle.js')
+  script(src='js/vendor.bundle.js')
+  script(src='js/portfolio.bundle.js')
+    

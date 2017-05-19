@@ -1,4 +1,6 @@
-app.controller('ContactsController', function ($scope, $http, $mdToast) {
+'use strict';
+
+function ContactsCtrl($scope, $http, $mdToast) {
 
   $scope.submit = function () {
     var data = ({
@@ -25,4 +27,6 @@ app.controller('ContactsController', function ($scope, $http, $mdToast) {
             "<hr />config: " + config;
       });
   }
-});
+};
+
+module.exports = ContactsCtrl;
