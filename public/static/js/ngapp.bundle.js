@@ -80,18 +80,11 @@ module.exports = PortfolioController;
 
 
 function ProjectController($scope, $http, $routeParams, dataService) {
-  // function ProjectController($scope, $http, $stateParams, dataService) {
   dataService.getProject(function (response) {
     console.log('@ProjectCtrl:getProject');
     $scope.project = {};
     $scope.project = response.data;
   });
-
-  // $http.get('/projects/' + $routeParams.name).success(function(response) {
-  //   console.log('@projCtrl.js : successfully called http.get(/projects/' + $routeParams.name + ')');
-  //   $scope.project = {};
-  //   $scope.project = response;
-  // });
 };
 
 module.exports = ProjectController;
@@ -114,10 +107,6 @@ function dataService($http, $routeParams) {
     console.log('@dataService:getProject - name: ' + $routeParams.name);
     $http.get('/projects/' + $routeParams.name).then(callback);
   };
-  // this.getProject = function(callback) {
-  //   console.log('@dataService:getProject - name: ' + $stateParams.name);
-  //   $http.get('/projects/' + $stateParams.name).then(callback);
-  // };
 
   this.saveProject = function (callback) {
     console.log('@dataService:saveProject');
@@ -162,54 +151,9 @@ angular.module('architectureportfolio').service('dataService', __webpack_require
 
 var angular = __webpack_require__(8);
 
-angular
-// .module('architectureportfolio', ['ui.router','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
-// .config(['$stateProvider', '$locationProvider' , function ($stateProvider, $locationProvider) {
-.module('architectureportfolio', ['ngRoute', 'ngMaterial', 'ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+angular.module('architectureportfolio', ['ngRoute', 'ngMaterial', 'ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  // $locationProvider.html5Mode(true).hashPrefix('!');
-  // $locationProvider.html5Mode(false).hashPrefix('!');
-
-  // var home = {
-  //   name: 'home',
-  //   url: '/',
-  //   templateUrl: 'portfolio.html',
-  //   controller: 'PortfolioController'
-  // };
-  // var project = {
-  //   name: 'project',
-  //   url: '/projects/{name}',
-  //   templateUrl: 'project.html',
-  //   controller: 'ProjectController'
-  // };
-  // var about = {
-  //   name: 'about',
-  //   url: '/about',
-  //   templateUrl: '/about.html'
-  // };
-  // var contacts = {
-  //   name: 'contacts',
-  //   url: '/contacts',
-  //   templateUrl: 'contacts.html',
-  //   controller: 'ContactsController'
-  // };
-  // var cms = {
-  //   name: 'cms',
-  //   url: '/cms',
-  //   templateUrl: 'edit.html',
-  //   controller: 'PortfolioController'
-  // };
-  // var reset = {
-  //   name: 'reset',
-  //   redirectTo: 'home'
-  // };
-
-  // $stateProvider.state(home);
-  // $stateProvider.state(project);
-  // $stateProvider.state(about);
-  // $stateProvider.state(contacts);
-  // $stateProvider.state(cms);
-  // $stateProvider.state(reset);
+  $locationProvider.html5Mode(true).hashPrefix('!');
 
   $routeProvider.when('/home', {
     templateUrl: '/portfolio.html',

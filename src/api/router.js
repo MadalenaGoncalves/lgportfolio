@@ -9,20 +9,10 @@ const portfolio          = require('./loadPortfolio.js'),
       dbreset            = require('./dbReset.js'),
       contactFormHandler = require('./contactFormHandler');
 
-// router.get('/', function(req, res) {
-//   console.log("@router.js : get('/')");
-//   res.sendFile("index.html");
-// 	// portfolio.loadPortfolio(req, res);
-// });
-
-// // serve angular frontend files from root path
-// router.use('/', express.static(path.join(__dirname, './../../public/templates'), { redirect:false } ));
-
-// // rewrite virtual urls to angular app to enable refreshing of internal pages
-// router.get('*', function (req, res, next) {
-//     res.sendFile(path.join(__dirname, './../../public/templates'));
-// });
-
+// rewrite virtual urls to angular app to enable refreshing of internal pages
+router.get('*', function (req, res, next) {
+    res.sendFile(path.join(__dirname, './../../public/templates'));
+});
 
 router.get('/home', function(req, res) {
 	console.log("@router.js : get('/home')");

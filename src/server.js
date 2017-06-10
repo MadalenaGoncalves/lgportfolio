@@ -38,7 +38,6 @@ app.use('/', routes);
 app.use(function (req, res, next) {
 	console.log('404 - Client tried to get [' + req.url + ']');
 	res.status(404).send('404 - Sorry cant find that!');
-	//res.status(404).render('index'); // renders the index.jade in the templates folder
 });
 
 // Database connection

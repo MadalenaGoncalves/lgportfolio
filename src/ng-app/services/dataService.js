@@ -10,11 +10,7 @@ function dataService($http, $routeParams) {
     console.log('@dataService:getProject - name: ' + $routeParams.name);
     $http.get('/projects/' + $routeParams.name).then(callback);
   };
-  // this.getProject = function(callback) {
-  //   console.log('@dataService:getProject - name: ' + $stateParams.name);
-  //   $http.get('/projects/' + $stateParams.name).then(callback);
-  // };
-
+  
   this.saveProject = function(callback) {
     console.log('@dataService:saveProject');
     console.log('Project saved');
