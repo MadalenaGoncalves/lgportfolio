@@ -1,31 +1,44 @@
-// run: webpack
-
-var webpack = require('webpack'),
-       path = require('path');
+const webpack           = require('webpack'),
+      path              = require('path'),
+      ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: __dirname + '/src/ng-app',
+  context: path.join(__dirname, '/src/ng-app'),
   entry: {
-    app: './app.js',
-    vendor: ['angular','angular-animate', 'angular-aria', 'angular-material', 'angular-messages', 'angular-route']
+    ngapp: './app.js',
+    vendor: ['angular','angular-animate','angular-aria','angular-material','angular-messages','angular-route','angular-ui-router']
   },
   output: {
-    path: __dirname + '/public/static/js',
-    filename: 'portfolio.bundle.js'
+    // path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '/public/static/js'),
+    filename: '[name].bundle.js',
+    sourceMapFilename: '[file].map',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        loader: ['style-loader', 'css-loader', 'sass-loader'],
-        test: /\.scss$/
+        test: /\.js$/, 
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }]
       },
       {
-        loader: ['url', 'img'],
-        test: /\.png$/
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader', 
+          use: ['css-loader', 'sass-loader']
+        })
       }
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({name:'vendor', filename:'vendor.bundle.js'}) 
-  ]
+    new ExtractTextPlugin('styles.css'),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
+  ],
+  devServer: {
+    contentBase: '../public/templates'
+  }
 };

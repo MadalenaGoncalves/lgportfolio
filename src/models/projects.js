@@ -5,8 +5,7 @@ const mongoose = require('mongoose'),
       ImgModel = require('./images.js'),
      ImgSchema = mongoose.model('images').schema;
 
-// Schema declaration
-var projectSchema = mongoose.Schema({
+const projectSchema = mongoose.Schema({
     name          : String,
     shortTitle    : String,
     shortDesc     : String,
@@ -27,15 +26,5 @@ var projectSchema = mongoose.Schema({
     images        : [{ type: Schema.Types.ObjectId, ref: 'images' }]
 });
 
-// Behavior - NOTE: methods must be added to the schema before compiling it with mongoose.model()
-// projectSchema.methods.[method_name] = function(){ ... }
-
-// kittySchema.methods.speak = function () {
-//   var greeting = this.name
-//     ? "Meow name is " + this.name
-//     : "I don't have a name";
-//   console.log(greeting);
-// }
-
-var Projects = mongoose.model('projects',projectSchema);
+let Projects = mongoose.model('projects',projectSchema);
 module.exports = Projects;

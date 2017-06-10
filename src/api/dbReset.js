@@ -2,11 +2,11 @@
 
 let      async = require('async'),
       mongoose = require( 'mongoose' ),
-      imgModel = require( './../../models/images.js' ),
-     projModel = require( './../../models/projects.js' ),
-  projectsData = require( './projects.json' ),
-    imagesData = require( './images.json' ),
-           map = require( './projImgMapper.json' );
+      imgModel = require( './../models/images.js' ),
+     projModel = require( './../models/projects.js' ),
+  projectsData = require( './../data/projects.json' ),
+    imagesData = require( './../data/images.json' ),
+           map = require( './../data/projImgMapper.json' );
 
 // get refs to the models we defined above
 const Image = mongoose.model( 'images' ),

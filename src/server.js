@@ -1,12 +1,12 @@
 'use strict';
 
 // Initialization of the express framework
-var express      = require('express'),
-	  bodyParser   = require('body-parser'),
-	  // favicon      = require('serve-favicon'),
-	  path         = require('path'),
-	  http         = require('http'),
-	  mongoose     = require('mongoose');
+const express      = require('express'),
+	    bodyParser   = require('body-parser'),
+	    // favicon      = require('serve-favicon'),
+      path         = require('path'),
+      http         = require('http'),
+      mongoose     = require('mongoose');
 
 const port = process.env.PORT || 3000,
 	    dbname = 'lgportfolio',
@@ -24,41 +24,22 @@ app.set('port', port);
 // BodyParser middleware allows you to easily parse JSON objects
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 // app.use(favicon(__dirname + '/public/static/images/favicon.ico'));
 
-
-// Routes to static files
+// Use middleware to define the routes to static files
 //   Namespace: root
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '../public/templates')));
+app.use(express.static(path.join(__dirname, './../public')));
+app.use(express.static(path.join(__dirname, './../public/static/images')));
+app.use(express.static(path.join(__dirname, './../public/templates')));
 
-// Routes to non-static files
-//   Namespace: api
-// app.use(express.static(path.join(__dirname, 'src')));
-var routes = require('./router');
-// defines a diferent namespace (/api) for our api routes, instead of using the same namespace of the static files
-//   in the router.js file, all the routes are created from the same express.Router object
-// app.use('/api', routes);  // mounts the router to the "api" url
+// Use middleware to define the routes to non-static files - can be defined in a different namespace, such as /api
+var routes = require('./api/router');
 app.use('/', routes);
-
-// app.all('/*', function(req, res, next) {
-//     // Just send the index.html for other files to support HTML5Mode
-//     res.sendFile('/public/static/index.html', { root: __dirname });
-// });
-// app.use(function (req, res, next) {
-// 	console.log('404 - Client tried to get [' + req.url + ']');
-// 	res.status(404).send('404 - Sorry cant find that!');
-// 	//res.status(404).render('index'); // renders the index.jade in the templates folder
-// });
-
-
-// Other middleware
-// app.use( express.logger( 'dev' ));
-// app.use( express.cookieParser()); // use express cookies to recognize users
-// app.use( express.methodOverride());
-// app.use( express.errorHandler());
-
+app.use(function (req, res, next) {
+	console.log('404 - Client tried to get [' + req.url + ']');
+	res.status(404).send('404 - Sorry cant find that!');
+	//res.status(404).render('index'); // renders the index.jade in the templates folder
+});
 
 // Database connection
 mongoose.connect(mongolab_uri || 'mongodb://localhost/lgportfoliodb');

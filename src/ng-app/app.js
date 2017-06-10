@@ -1,45 +1,86 @@
 'use strict';
 
-// import './../../public/sass/styles.scss';
-
+// import './styles.css';
 var angular = require('angular');
 
 angular
+// .module('architectureportfolio', ['ui.router','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+// .config(['$stateProvider', '$locationProvider' , function ($stateProvider, $locationProvider) {
 .module('architectureportfolio', ['ngRoute','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
-.config(['$routeProvider', function ($routeProvider) {
-  // .config(['$routeProvider', '$locationProvider','$provide', function ($routeProvider,$locationProvider,$provide) {
-    // $provide.decorator('$sniffer', ['$delegate', function($delegate) {
-    //   $delegate.history = true;
-    //   return $delegate;
-    // }]);
-    // $locationProvider
-    //   .html5Mode(true);
+.config(['$routeProvider', '$locationProvider' , function ($routeProvider, $locationProvider) {
+  // $locationProvider.html5Mode(true).hashPrefix('!');
+  // $locationProvider.html5Mode(false).hashPrefix('!');
+
+  // var home = {
+  //   name: 'home',
+  //   url: '/',
+  //   templateUrl: 'portfolio.html',
+  //   controller: 'PortfolioController'
+  // };
+  // var project = {
+  //   name: 'project',
+  //   url: '/projects/{name}',
+  //   templateUrl: 'project.html',
+  //   controller: 'ProjectController'
+  // };
+  // var about = {
+  //   name: 'about',
+  //   url: '/about',
+  //   templateUrl: '/about.html'
+  // };
+  // var contacts = {
+  //   name: 'contacts',
+  //   url: '/contacts',
+  //   templateUrl: 'contacts.html',
+  //   controller: 'ContactsController'
+  // };
+  // var cms = {
+  //   name: 'cms',
+  //   url: '/cms',
+  //   templateUrl: 'edit.html',
+  //   controller: 'PortfolioController'
+  // };
+  // var reset = {
+  //   name: 'reset',
+  //   redirectTo: 'home'
+  // };
+
+  // $stateProvider.state(home);
+  // $stateProvider.state(project);
+  // $stateProvider.state(about);
+  // $stateProvider.state(contacts);
+  // $stateProvider.state(cms);
+  // $stateProvider.state(reset);
+
   $routeProvider
     .when('/home', {
-      // templateUrl: '../templates/portfolio.pug',
-      templateUrl: '../templates/portfolio.pug',
+      templateUrl: '/portfolio.html',
       controller: 'PortfolioController'
-      // controllerAs: 'controller'
     })
-    .when('/reset', {
-      redirectTo: '/home'
+    .when('/cms', {
+      templateUrl: '/edit.html',
+      controller: 'PortfolioController'
     })
     .when('/projects/:name', {
-      templateUrl: '../templates/project.pug',
+      templateUrl: '/project.html',
       controller: 'ProjectController'
     })
     .when('/about', {
-      templateUrl: '../templates/about.pug'
+      templateUrl: '/about.html'
     })
     .when('/contacts', {
-      templateUrl: '../templates/contacts.pug',
+      templateUrl: '/contacts.html',
       controller: 'ContactsController'
     })
+    .when('/reset', {
+      redirectTo: '/'
+    })
+    // .when('/', {
+    //   redirectTo: '/home'
+    // })
     .otherwise({
       redirectTo: '/home'
     });
 }]);
 
-require('./controllers');
-// require('./directives');
-// require('./services');
+require('./index');

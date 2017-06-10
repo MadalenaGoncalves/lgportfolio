@@ -1,6 +1,6 @@
 'use strict';
 
-function ContactsCtrl($scope, $http, $mdToast) {
+function ContactsController($scope, $http, $mdToast) {
 
   $scope.submit = function () {
     var data = ({
@@ -29,4 +29,4 @@ function ContactsCtrl($scope, $http, $mdToast) {
   }
 };
 
-module.exports = ContactsCtrl;
+module.exports = ContactsController;
