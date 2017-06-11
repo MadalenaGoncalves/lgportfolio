@@ -10,9 +10,10 @@ const portfolio          = require('./loadPortfolio.js'),
       contactFormHandler = require('./contactFormHandler');
 
 // rewrite virtual urls to angular app to enable refreshing of internal pages
-router.get('*', function (req, res, next) {
-    res.sendFile(path.join(__dirname, './../../public/templates'));
-});
+// router.get('*', function (req, res, next) {
+//   console.log("@router.js : get('*')");
+//   res.sendFile(path.join(__dirname, './../../public/templates'));
+// });
 
 router.get('/home', function(req, res) {
 	console.log("@router.js : get('/home')");

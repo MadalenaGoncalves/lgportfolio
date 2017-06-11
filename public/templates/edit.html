@@ -1,4 +1,4 @@
-<section ng-controller="PortfolioCtrl">
+<section ng-controller="PortfolioController">
   <h1>Gestão do Portfolio</h1>
   <a src="">Novo projecto</a>
   <div ng-repeat="project in projects">
@@ -7,9 +7,9 @@
   </div>
 </section>
 
-<section class="portfolio" ng-controller="PortfolioCtrl">
+<section class="portfolio" ng-controller="PortfolioController">
   <div ng-repeat="project in projects">
-    <img ng-src="/thumbnails/{{project.name}}.png" class="img-responsive" alt="" id="{{project.name}}" style="max-width:50px; max-height:50px;">
+    <img ng-src="/thumbnails/{{project.name}}.png" class="img-responsive" alt="" id="edit_{{project.name}}" style="max-width:50px; max-height:50px;">
     <span>{{project.title}}</span>
     <div>
       <a src=""> Edit </a>

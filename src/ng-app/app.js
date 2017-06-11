@@ -7,7 +7,6 @@ angular
 .module('architectureportfolio', ['ngRoute','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider' , function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
-
   $routeProvider
     .when('/home', {
       templateUrl: '/portfolio.html',
@@ -29,11 +28,11 @@ angular
       controller: 'ContactsController'
     })
     .when('/reset', {
-      redirectTo: '/'
+      redirectTo: '/home'
     })
-    // .when('/', {
-    //   redirectTo: '/home'
-    // })
+    .when('/', {
+      redirectTo: '/home'
+    })
     .otherwise({
       redirectTo: '/home'
     });

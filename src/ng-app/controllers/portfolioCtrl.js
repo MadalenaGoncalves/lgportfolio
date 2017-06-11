@@ -1,11 +1,12 @@
 'use strict';
 
-function PortfolioController($scope, $http, dataService) {  
-  // $http.get('/home').then(function(response) {
-  //   console.log('@PortfolioCtrl: GET /home');
-  //   $scope.projects = {};
-  //   $scope.projects = response.data;
-  // });
+function PortfolioController($scope, $http, dataService) {
+
+  dataService.getPortfolio(function(response) {
+    console.log('@portfolioCtrl:dataService.getPortfolio()');
+    $scope.projects = {};
+    $scope.projects = response.data;
+  });
   
   // $scope.reset = function() {
   //   $http.get('/reset').then(function(response){
@@ -26,12 +27,6 @@ function PortfolioController($scope, $http, dataService) {
   //   $scope.projects = {};
   //   $scope.projects = response.data;
   // });
-
-  dataService.getPortfolio(function(response) {
-    console.log('@PortfolioCtrl:getPortfolio');
-    $scope.projects = {};
-    $scope.projects = response.data;
-  });
 };
 
 module.exports = PortfolioController;

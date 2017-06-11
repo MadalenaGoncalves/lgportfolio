@@ -11,6 +11,6 @@ exports.loadPortfolio = function(req,res){
       // Issue Internal Server Error
       return res.stats(500).json({message: err.message});
     }
-    res.json(docs);
+    res .json(docs);
   });
 }

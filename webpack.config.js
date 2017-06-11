@@ -6,7 +6,7 @@ module.exports = {
   context: path.join(__dirname, '/src/ng-app'),
   entry: {
     ngapp: './app.js',
-    vendor: ['angular','angular-animate','angular-aria','angular-material','angular-messages','angular-route','angular-ui-router']
+    vendor: ['angular','angular-animate','angular-aria','angular-material','angular-messages','angular-route']
   },
   output: {
     // path: path.join(__dirname, '/dist'),

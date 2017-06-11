@@ -1,6 +1,74 @@
-webpackJsonp([0],{
+webpackJsonp([0],[
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 100:
+"use strict";
+
+
+// Controllers 
+
+angular.module('architectureportfolio').controller('PortfolioController', __webpack_require__(15));
+angular.module('architectureportfolio').controller('ProjectController', __webpack_require__(16));
+angular.module('architectureportfolio').controller('ContactsController', __webpack_require__(14));
+
+// Services
+angular.module('architectureportfolio').service('dataService', __webpack_require__(17));
+
+// Directives
+
+/***/ }),
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// import './styles.css';
+
+var angular = __webpack_require__(0);
+
+angular.module('architectureportfolio', ['ngRoute', 'ngMaterial', 'ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true).hashPrefix('!');
+  $routeProvider.when('/home', {
+    templateUrl: '/portfolio.html',
+    controller: 'PortfolioController'
+  }).when('/cms', {
+    templateUrl: '/edit.html',
+    controller: 'PortfolioController'
+  }).when('/projects/:name', {
+    templateUrl: '/project.html',
+    controller: 'ProjectController'
+  }).when('/about', {
+    templateUrl: '/about.html'
+  }).when('/contacts', {
+    templateUrl: '/contacts.html',
+    controller: 'ContactsController'
+  }).when('/reset', {
+    redirectTo: '/home'
+  }).when('/', {
+    redirectTo: '/home'
+  }).otherwise({
+    redirectTo: '/home'
+  });
+}]);
+
+__webpack_require__(6);
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28,19 +96,19 @@ function ContactsController($scope, $http, $mdToast) {
 module.exports = ContactsController;
 
 /***/ }),
-
-/***/ 101:
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function PortfolioController($scope, $http, dataService) {
-  // $http.get('/home').then(function(response) {
-  //   console.log('@PortfolioCtrl: GET /home');
-  //   $scope.projects = {};
-  //   $scope.projects = response.data;
-  // });
+
+  dataService.getPortfolio(function (response) {
+    console.log('@portfolioCtrl:dataService.getPortfolio()');
+    $scope.projects = {};
+    $scope.projects = response.data;
+  });
 
   // $scope.reset = function() {
   //   $http.get('/reset').then(function(response){
@@ -61,19 +129,12 @@ function PortfolioController($scope, $http, dataService) {
   //   $scope.projects = {};
   //   $scope.projects = response.data;
   // });
-
-  dataService.getPortfolio(function (response) {
-    console.log('@PortfolioCtrl:getPortfolio');
-    $scope.projects = {};
-    $scope.projects = response.data;
-  });
 };
 
 module.exports = PortfolioController;
 
 /***/ }),
-
-/***/ 102:
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90,16 +151,16 @@ function ProjectController($scope, $http, $routeParams, dataService) {
 module.exports = ProjectController;
 
 /***/ }),
-
-/***/ 103:
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function dataService($http, $routeParams) {
+
   this.getPortfolio = function (callback) {
-    console.log('@dataService:getPortfolio');
+    console.log('@dataService:getPortfolio: get(/home).then(callback)');
     $http.get('/home').then(callback);
   };
 
@@ -120,68 +181,5 @@ function dataService($http, $routeParams) {
 }
 module.exports = dataService;
 
-/***/ }),
-
-/***/ 64:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Controllers 
-
-angular.module('architectureportfolio').controller('PortfolioController', __webpack_require__(101));
-angular.module('architectureportfolio').controller('ProjectController', __webpack_require__(102));
-angular.module('architectureportfolio').controller('ContactsController', __webpack_require__(100));
-
-// Services
-angular.module('architectureportfolio').service('dataService', __webpack_require__(103));
-
-// Directives
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// import './styles.css';
-
-var angular = __webpack_require__(8);
-
-angular.module('architectureportfolio', ['ngRoute', 'ngMaterial', 'ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
-.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true).hashPrefix('!');
-
-  $routeProvider.when('/home', {
-    templateUrl: '/portfolio.html',
-    controller: 'PortfolioController'
-  }).when('/cms', {
-    templateUrl: '/edit.html',
-    controller: 'PortfolioController'
-  }).when('/projects/:name', {
-    templateUrl: '/project.html',
-    controller: 'ProjectController'
-  }).when('/about', {
-    templateUrl: '/about.html'
-  }).when('/contacts', {
-    templateUrl: '/contacts.html',
-    controller: 'ContactsController'
-  }).when('/reset', {
-    redirectTo: '/'
-  })
-  // .when('/', {
-  //   redirectTo: '/home'
-  // })
-  .otherwise({
-    redirectTo: '/home'
-  });
-}]);
-
-__webpack_require__(64);
-
 /***/ })
-
-},[99]);
+],[13]);
