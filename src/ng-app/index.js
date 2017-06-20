@@ -1,11 +1,13 @@
 'use strict';
 
 // Controllers 
-angular.module('architectureportfolio').controller('PortfolioController', require('./controllers/portfolioCtrl'));
-angular.module('architectureportfolio').controller('ProjectController', require('./controllers/projectCtrl'));
-angular.module('architectureportfolio').controller('ContactsController', require('./controllers/contactsCtrl'));
+angular.module('architecturePortfolio').controller('PortfolioController', require('./controllers/portfolioCtrl'));
+angular.module('architecturePortfolio').controller('ProjectController', require('./controllers/projectCtrl'));
+angular.module('architecturePortfolio').controller('ContactsController', require('./controllers/contactsCtrl'));
+angular.module('architecturePortfolio').controller('CMSController', require('./controllers/cmsCtrl'));
 
 // Services
-angular.module('architectureportfolio').service('dataService', require('./services/dataService'));
+angular.module('architecturePortfolio').service('dataService', require('./services/dataService'));
 
 // Directives
+// angular.module('architecturePortfolio').directive('projectForm', require('./directives/projectFormDirective'));

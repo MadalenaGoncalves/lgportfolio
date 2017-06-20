@@ -4,8 +4,7 @@ const express = require('express'),
       path    = require('path'),
       router  = express.Router();
       
-const portfolio          = require('./loadPortfolio.js'),
-      project            = require('./loadProject.js'),
+const api                = require('./api.js'),
       dbreset            = require('./dbReset.js'),
       contactFormHandler = require('./contactFormHandler');
 
@@ -17,19 +16,19 @@ const portfolio          = require('./loadPortfolio.js'),
 
 router.get('/home', function(req, res) {
 	console.log("@router.js : get('/home')");
-	portfolio.loadPortfolio(req, res);
+  api.getPortfolio(req, res);
 });
 
 router.get('/reset', function(req, res) {
 	console.log("@router.js : get('/reset')");
 	dbreset.reset(req, res, function () {
-		portfolio.loadPortfolio(req, res);
+    api.getPortfolio(req, res);
 	});
 });
 
-router.get('/projects/:name', function(req, res) {
-	console.log("@router.js : get('/projects/" + req.params.name + "')");
-	project.loadProject(req,res);
+router.get('/projects/:id', function(req, res) {
+	console.log("@router.js : get('/projects/" + req.params.id + "')");
+  api.getProject(req,res);
 });
 
 router.post('/contacts', function(req, res){
@@ -39,7 +38,25 @@ router.post('/contacts', function(req, res){
 
 router.get('/cms', function(req, res) {
   console.log("@router.js : get('/cms')");
-  portfolio.loadPortfolio(req, res);
+  api.getPortfolio(req, res);
 });
+
+router.post('/cms', function(req, res) {
+	console.log("@router.js : post('/cms)");
+  // api.addProject(req,res);
+  api.upsertProject(req,res);
+});
+
+// router.post('/cms/:id', function(req, res) {
+// 	console.log("@router.js : post('/cms/" + req.params.id + "')");
+//   // api.updateProject(req,res);
+//   api.upsertProject(req,res);
+// });
+
+router.delete('/cms/:id', function(req, res) {
+  console.log("@router.js : delete('/cms/" + req.params.id + "')");
+  api.deleteProject(req, res);
+});
+
 
 module.exports = router;

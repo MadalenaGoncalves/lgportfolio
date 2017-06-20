@@ -1,0 +1,18 @@
+<section>
+  <h1>Portfolio Managment</h1>
+  <a href ng-click="cmsCtrl.reset()">Reset</a>
+  
+  <button src="" ng-click="cmsCtrl.showForm()" ng-hide="cmsCtrl.adding">Add project</button>
+  <section ng-if="cmsCtrl.adding || cmsCtrl.editing">
+    <ng-include src="'partials/edit-project.html'"></ng-include>
+    <!--<projectForm></projectForm>-->
+  </section>
+
+  <div ng-repeat="project in cmsCtrl.projects" > <!--ng-hide="cmsCtrl.adding"-->
+    <img ng-src="/thumbnails/{{project.name}}.png" alt="" id="edit_{{project.name}}" 
+        class="thumbnail">
+    <span>{{project.title}}</span>
+    <a href src="" ng-click="cmsCtrl.showForm(project)"> Edit </a>
+    <a href src="" ng-click="cmsCtrl.delete($index)"> Delete </a>
+  </div>
+</section>

@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 });
 
 // Database connection
-mongoose.connect(mongolab_uri || 'mongodb://localhost/lgportfoliodb');
+mongoose.connect('mongodb://localhost/lgportfoliodb' || mongolab_uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 

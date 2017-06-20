@@ -1,6 +1,6 @@
 <section id="portfolio">
   <div ng-repeat="project in projects">
-    <a href="/projects/{{project.name}}" title="{{project.title}}">
+    <a href="/projects/{{project._id}}" title="{{project.title}}">
       <img ng-src="/thumbnails/{{project.name}}.png" alt="" id="view_{{project.name}}" 
            class="img-responsive" style="max-width:50px; max-height:50px;">
       <span>{{project.title}}</span>

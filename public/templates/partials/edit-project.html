@@ -1,0 +1,81 @@
+<!--<form name="projectForm" ng-submit="submit(project)">-->
+<div>
+  <label>New project</label>
+  <input type="text" ng-model="cmsCtrl.formProject.title"/>
+</div>
+<div class="fields">
+  <div>
+    <label>Category</label>
+    <input type="text" ng-model="cmsCtrl.formProject.category"/>
+  </div>
+  <div>
+    <label>Description</label>
+    <input type="text" ng-model="cmsCtrl.formProject.description"/>
+  </div>
+  <div>
+    <label>Address</label>
+    <input type="text" ng-model="cmsCtrl.formProject.address"/>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>City</label>
+    <input type="text" ng-model="cmsCtrl.formProject.city"/>
+  </div>
+  <div>
+    <label>Country</label>
+    <input type="text" ng-model="cmsCtrl.formProject.country"/>
+  </div>
+  <div>
+    <label>Start Date</label>
+    <select ng-model="cmsCtrl.formProject.start" ng-options="year for year in cmsCtrl.years" ng-change="">
+      <option value="" disabled>Select year</option>
+    </select>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>End Date</label>
+    <select ng-model="cmsCtrl.formProject.end" ng-options="year for year in cmsCtrl.years" ng-change="">
+      <option value="" disabled>Select year</option>
+    </select>
+  </div>
+  <div>
+    <label>Gross Area</label>
+    <input type="text" ng-model="cmsCtrl.formProject.grossarea"/>
+  </div>
+  <div>
+    <label>Floor Area</label>
+    <input type="text" ng-model="cmsCtrl.formProject.floorarea"/>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>Company</label>
+    <input type="text" ng-model="cmsCtrl.formProject.company"/>
+  </div>
+  <div>
+    <label>Participation</label>
+    <input type="text" ng-model="cmsCtrl.formProject.participation"/>
+  </div>
+</div>
+
+<label>Thumbnail... to be done</label>
+<!-- upload new image -->
+<!-- choose image already in the from database -->
+<br/>
+<label>Images... to be done</label>
+<!-- upload new image or -->
+<!-- upload new set of images or -->
+<!-- choose image already in the from database -->
+
+<pre>{{ project | json }} </pre>
+
+<!--<input type="submit" id="submit" value="submit" />-->
+<!--</form>-->
+
+<button ng-click="cmsCtrl.submit(cmsCtrl.formProject)">Save</button>
+<button ng-click="cmsCtrl.cancel()">Cancel</button>
+
+<!--<a href ng-click="cmsCtrl.submit()">Save</a>
+<a href ng-click="cmsCtrl.cancel()">Cancel</a>-->

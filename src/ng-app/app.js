@@ -4,31 +4,36 @@
 var angular = require('angular');
 
 angular
-.module('architectureportfolio', ['ngRoute','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+.module('architecturePortfolio', ['ngRoute','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider' , function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider
     .when('/home', {
+      // redirectTo: '/cms'
       templateUrl: '/portfolio.html',
-      controller: 'PortfolioController'
+      controller: 'PortfolioController',
+      controllerAs: 'portfolioCtrl'
     })
     .when('/cms', {
-      templateUrl: '/edit.html',
-      controller: 'PortfolioController'
+      templateUrl: '/cms.html',
+      controller: 'CMSController',
+      controllerAs: 'cmsCtrl'
     })
-    .when('/projects/:name', {
+    .when('/projects/:id', {
       templateUrl: '/project.html',
-      controller: 'ProjectController'
+      controller: 'ProjectController',
+      controllerAs: 'projectCtrl'
     })
     .when('/about', {
       templateUrl: '/about.html'
     })
     .when('/contacts', {
       templateUrl: '/contacts.html',
-      controller: 'ContactsController'
+      controller: 'ContactsController',
+      controllerAs: 'contactsCtrl'
     })
     .when('/reset', {
-      redirectTo: '/home'
+      redirectTo: '/cms'
     })
     .when('/', {
       redirectTo: '/home'
