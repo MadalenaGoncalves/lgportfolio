@@ -8,10 +8,10 @@
     <!--<projectForm></projectForm>-->
   </section>
 
-  <div ng-repeat="project in cmsCtrl.projects" > <!--ng-hide="cmsCtrl.adding"-->
+  <div ng-repeat="project in cmsCtrl.projects">
     <img ng-src="/thumbnails/{{project.name}}.png" alt="" id="edit_{{project.name}}" 
         class="thumbnail">
-    <span>{{project.title}}</span>
+    <span>{{ project.title }}</span>
     <a href src="" ng-click="cmsCtrl.showForm(project)"> Edit </a>
     <a href src="" ng-click="cmsCtrl.delete($index)"> Delete </a>
   </div>

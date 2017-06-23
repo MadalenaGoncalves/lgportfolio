@@ -1,13 +1,17 @@
 'use strict';
 
 // Controllers 
-angular.module('architecturePortfolio').controller('PortfolioController', require('./controllers/portfolioCtrl'));
-angular.module('architecturePortfolio').controller('ProjectController', require('./controllers/projectCtrl'));
-angular.module('architecturePortfolio').controller('ContactsController', require('./controllers/contactsCtrl'));
-angular.module('architecturePortfolio').controller('CMSController', require('./controllers/cmsCtrl'));
+angular.module('portfolio').controller('PortfolioController', require('./controllers/portfolioCtrl'));
+angular.module('portfolio').controller('ProjectController', require('./controllers/projectCtrl'));
+angular.module('portfolio').controller('ContactsController', require('./controllers/contactsCtrl'));
+angular.module('portfolio').controller('CMSController', require('./controllers/cmsCtrl'));
+angular.module('portfolio').controller('UploadController', require('./controllers/uploadCtrl'));
 
 // Services
-angular.module('architecturePortfolio').service('dataService', require('./services/dataService'));
+angular.module('portfolio').service('projectService', require('./services/projectService'));
+angular.module('portfolio').service('uploadService', require('./services/uploadService'));
 
 // Directives
-// angular.module('architecturePortfolio').directive('projectForm', require('./directives/projectFormDirective'));
+// angular.module('portfolio').directive('projectForm', require('./directives/projectFormDirective'));
+// angular.module('portfolio').directive('fileModel', require('./directives/fileModelDirective'));
+angular.module('fileModelDirective').directive('fileModel', ['$parse', require('./directives/fileModelDirective')]);

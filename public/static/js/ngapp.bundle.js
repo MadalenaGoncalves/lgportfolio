@@ -13,16 +13,20 @@ webpackJsonp([0],[
 
 // Controllers 
 
-angular.module('architecturePortfolio').controller('PortfolioController', __webpack_require__(16));
-angular.module('architecturePortfolio').controller('ProjectController', __webpack_require__(17));
-angular.module('architecturePortfolio').controller('ContactsController', __webpack_require__(15));
-angular.module('architecturePortfolio').controller('CMSController', __webpack_require__(14));
+angular.module('portfolio').controller('PortfolioController', __webpack_require__(16));
+angular.module('portfolio').controller('ProjectController', __webpack_require__(17));
+angular.module('portfolio').controller('ContactsController', __webpack_require__(15));
+angular.module('portfolio').controller('CMSController', __webpack_require__(14));
+angular.module('portfolio').controller('UploadController', __webpack_require__(18));
 
 // Services
-angular.module('architecturePortfolio').service('dataService', __webpack_require__(18));
+angular.module('portfolio').service('projectService', __webpack_require__(19));
+angular.module('portfolio').service('uploadService', __webpack_require__(20));
 
 // Directives
-// angular.module('architecturePortfolio').directive('projectForm', require('./directives/projectFormDirective'));
+// angular.module('portfolio').directive('projectForm', require('./directives/projectFormDirective'));
+// angular.module('portfolio').directive('fileModel', require('./directives/fileModelDirective'));
+angular.module('fileModelDirective').directive('fileModel', ['$parse', __webpack_require__(22)]);
 
 /***/ }),
 /* 7 */,
@@ -41,7 +45,11 @@ angular.module('architecturePortfolio').service('dataService', __webpack_require
 
 var angular = __webpack_require__(0);
 
-angular.module('architecturePortfolio', ['ngRoute', 'ngMaterial', 'ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+// file upload module
+angular.module('fileModelDirective', []);
+
+// main module
+angular.module('portfolio', ['ngRoute', 'ngMaterial', 'ngMessages', 'fileModelDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider.when('/home', {
@@ -81,15 +89,15 @@ __webpack_require__(6);
 "use strict";
 
 
-function CMSController($scope, $http, dataService) {
+function CMSController($http, projectService) {
 
   var _this = this;
   _this.projects;
-  _this.formProject;
+  _this.formProject = {};
 
   // Populate the projects variable on page load
-  dataService.getPortfolio(function (response) {
-    console.log('@cmsCtrl:dataService.getPortfolio()');
+  projectService.getAll(function (response) {
+    console.log('@cmsCtrl:projectService.getAll()');
     _this.projects = {};
     _this.projects = response.data;
   });
@@ -111,8 +119,8 @@ function CMSController($scope, $http, dataService) {
   // ### Reset DB ###############################
   // ############################################
   this.reset = function () {
-    console.log('@cmsCtrl:dataService.reset()');
-    dataService.reset(function (response) {
+    console.log('@cmsCtrl:projectService.reset()');
+    projectService.reset(function (response) {
       _this.projects = {};
       _this.projects = response.data;
     });
@@ -125,42 +133,30 @@ function CMSController($scope, $http, dataService) {
     console.log('@cmsCtrl: showForm() ');
     if ("undefined" === typeof proj) {
       _this.formProject = {};
-      _this.adding = !this.adding;
       _this.editing = false;
-    } else {
+      _this.adding = true;
+    } else if (!_this.editing || proj._id != _this.formProject._id) {
+      _this.formProject = {};
       _this.formProject = proj;
-      _this.editing = !this.editing;
       _this.adding = false;
+      _this.editing = true;
+    } else {
+      _this.editing = false;
+      _this.formProject = {};
     }
   };
 
   this.cancel = function () {
-    _this.adding = !this.adding;
+    _this.adding = false;
+    _this.editing = false;
     _this.formProject = {};
   };
 
   this.submit = function (proj) {
     console.log('@cmsCtrl: submit() ');
-    console.log(proj);
-    // if ("undefined" === typeof proj._id) {
-    //   dataService.addProject({proj: proj}, function(response) {
-    //     console.log('@cmsCtrl:dataService.addProject()');
-    //     _this.projects.push(response.data);
-    //     _this.formProject = {};
-    //     _this.adding = false;
-    //   });
-    // }
-    // else {
-    //   dataService.updateProject({id: proj._id, proj: proj}, function(response) {
-    //     console.log('@cmsCtrl:dataService.updateProject()');
-    //     // _this.projects.push(response.data);
-    //     _this.formProject = {};
-    //     _this.editing = false;
-    //   });
-    // }
 
-    dataService.upsertProject({ proj: proj }, function (response) {
-      console.log('@cmsCtrl:dataService.upsert()');
+    projectService.upsert({ proj: proj }, function (response) {
+      console.log('@cmsCtrl:projectService.upsert()');
       if ("undefined" === typeof proj._id) {
         _this.projects.push(response.data);
         _this.adding = false;
@@ -177,8 +173,8 @@ function CMSController($scope, $http, dataService) {
   this.delete = function (idx) {
     console.log('@cmsCtrl: delete()');
     var proj = _this.projects[idx];
-    dataService.deleteProject({ id: proj._id }, function (response) {
-      console.log('@dataService.deleteProject callback');
+    projectService.delete({ id: proj._id }, function (response) {
+      console.log('@projectService.delete()');
       _this.projects.splice(idx, 1);
     });
   };
@@ -239,9 +235,9 @@ module.exports = ContactsController;
 "use strict";
 
 
-function PortfolioController($scope, $http, dataService) {
-  dataService.getPortfolio(function (response) {
-    console.log('@portfolioCtrl:dataService.getPortfolio()');
+function PortfolioController($scope, $http, projectService) {
+  projectService.getAll(function (response) {
+    console.log('@portfolioCtrl:projectService.getAll()');
     $scope.projects = {};
     $scope.projects = response.data;
   });
@@ -256,10 +252,9 @@ module.exports = PortfolioController;
 "use strict";
 
 
-function ProjectController($scope, $http, $routeParams, dataService) {
-
-  dataService.getProject(function (response) {
-    console.log('@ProjectCtrl:getProject');
+function ProjectController($scope, $http, $routeParams, projectService) {
+  projectService.getOne(function (response) {
+    console.log('@ProjectCtrl:getOne');
     $scope.project = {};
     $scope.project = response.data;
   });
@@ -274,46 +269,162 @@ module.exports = ProjectController;
 "use strict";
 
 
-function dataService($http, $routeParams) {
+function uploadController($scope, $timeout, uploadService) {
+  $scope.file = {};
+  $scope.thumbnailMessage = false;
+  $scope.alert = '';
 
-  this.getPortfolio = function (callback) {
-    console.log('@dataService:getPortfolio: get(/home).then(callback)');
+  $scope.submitThumbnail = function () {
+    $scope.uploadingThumb = true;
+
+    uploadService.uploadThumbnail($scope.file).then(function (data) {
+      if (data.data.success) {
+        $scope.uploadingThumb = false;
+        $scope.alert = 'alert alert-success'; // this is just for the ng-class
+        $scope.thumbnailMessage = data.data.message;
+        $scope.file = {};
+      } else {
+        $scope.uploadingThumb = false;
+        $scope.alert = 'alert alert-danger';
+        $scope.thumbnailMessage = data.data.message;
+        $scope.file = {};
+      }
+    });
+  };
+
+  $scope.thumbnailChanged = function (files) {
+    if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/i)) {
+      $scope.uploadingThumb = true;
+      var file = files[0];
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function (e) {
+        $timeout(function () {
+          $scope.thumbnail = {};
+          $scope.thumbnail.dataUrl = e.target.result;
+          $scope.uploadingThumb = false;
+          $scope.thumbnailMessage = false;
+        });
+      };
+    } else {
+      $scope.thumbnail = {};
+      $scope.thumbnailMessage = false;
+    }
+  };
+
+  $scope.cancelThumbnailUpload = function () {
+    $scope.thumbnail = {};
+    $scope.file = {};
+    $scope.uploadingThumb = false;
+    $scope.thumbnailMessage = false;
+  };
+};
+
+module.exports = uploadController;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function projectService($http, $routeParams) {
+
+  this.getAll = function (callback) {
+    console.log('@projectService:getAll: get(/home).then(callback)');
     $http.get('/home').then(callback);
   };
 
-  this.getProject = function (callback) {
-    console.log('@dataService:getProject - id: ' + $routeParams.id);
+  this.getOne = function (callback) {
+    console.log('@projectService:getOne - id: ' + $routeParams.id);
     console.log($routeParams);
     $http.get('/projects/' + $routeParams.id).then(callback);
   };
 
   // this.addProject = function(proj, callback) {
-  //   console.log('@dataService:addProject');
+  //   console.log('@projectService:addProject');
   //   $http.post('/cms',proj).then(callback);
   // };
 
   // this.updateProject = function(data, callback) {
-  //   console.log('@dataService:updateProject - id: ' + data.id);
+  //   console.log('@projectService:updateProject - id: ' + data.id);
   //   $http.post('/cms/' + data.id, data.proj).then(callback);
   // };
 
-  this.upsertProject = function (data, callback) {
-    console.log('@dataService:upsert - id: ' + data.proj._id);
+  this.upsert = function (data, callback) {
+    console.log('@projectService:upsert - id: ' + data.proj._id);
     $http.post("/cms", data.proj).then(callback);
   };
 
-  this.deleteProject = function (proj, callback) {
-    console.log('@dataService:deleteProject - id: ' + proj.id);
+  this.delete = function (proj, callback) {
+    console.log('@projectService:delete - id: ' + proj.id);
     $http.delete('/cms/' + proj.id).then(callback);
   };
 
   this.reset = function (callback) {
-    console.log('@dataService:reset');
+    console.log('@projectService:reset');
     $http.get('/reset').then(callback);
   };
 }
 
-module.exports = dataService;
+module.exports = projectService;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function uploadService($http, $routeParams) {
+
+  this.uploadThumbnail = function (file) {
+    console.log('@uploadService.js: uploadThumbnail()');
+
+    var fd = new FormData();
+    fd.append('projThumbnail', file.upload); // this 'projThumbnail' name has to be the same in the html
+
+    return $http.post('/uploadthumbnail', fd, {
+      transformRequest: angular.identity,
+      headers: { 'Content-Type': undefined }
+    });
+  };
+}
+
+module.exports = uploadService;
+
+/***/ }),
+/* 21 */,
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function fileModel($parse) {
+  return {
+    restrict: 'A', // attribute  E-element, A-Attribute, C-Class, M-Comments
+    //scope: {},  // isolated scopes: 
+    // in "scope: { customerInfo: '=info' }" 
+    //  info - Attr in the html directive. In the Ctrl, binds to our scope object (ex: $scope.naomi = {name:'Naomi'} )
+    //  customerInfo - In html, allows us to access the object of the scope (ex: {{customerInto.name}} )
+    // in "scope: { close: '&onClose' }" used to expose an API for binding to behaviors
+    link: function link(scope, element, attrs) {
+      // link is to manipulate the DOM
+      var parsedFile = $parse(attrs.fileModel); // element, in this case is the "input" html element, and "file-model" is one of its attributes
+      var parsedFileSetter = parsedFile.assign;
+
+      element.bind('change', function () {
+        scope.$apply(function () {
+          parsedFileSetter(scope, element[0].files[0]);
+        });
+      });
+    }
+  };
+}
+
+module.exports = fileModel;
 
 /***/ })
 ],[13]);

@@ -3,8 +3,13 @@
 // import './styles.css';
 var angular = require('angular');
 
+// file upload module
 angular
-.module('architecturePortfolio', ['ngRoute','ngMaterial','ngMessages']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+.module('fileModelDirective', []);
+
+// main module
+angular
+.module('portfolio', ['ngRoute','ngMaterial','ngMessages', 'fileModelDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider' , function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider

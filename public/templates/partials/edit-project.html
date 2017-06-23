@@ -79,3 +79,26 @@
 
 <!--<a href ng-click="cmsCtrl.submit()">Save</a>
 <a href ng-click="cmsCtrl.cancel()">Cancel</a>-->
+
+
+<br/>
+<br/>
+
+<div ng-controller="UploadController as uploadCtrl">
+  <form ng-submit="submitThumbnail();">
+    <label>Change thumbnail
+      <input type="file" file-model="file.upload" name="projThumbnail" ng-disabled="uploadingThumb" 
+             onchange="angular.element(this).scope().thumbnailChanged(this.files)">
+    </label>
+    <button ng-disabled="uploadingThumb" type="submit">Save</button>
+    <button ng-click="cancelThumbnailUpload()" type="reset">Cancel</button>
+    <span>Allowed formats: .png, .jpg</span>
+  </form>
+
+  <img ng-src="{{ thumbnail.dataUrl || '/thumbnails/default.png' }}" style="width:100%; height:100%; max-width:100px;">
+
+  <div ng-show="thumbnailMessage">
+    <div ng-class="alert">{{ thumbnailMessage }}</div>
+  </div>
+</div>
+<!--<div ng-show="uploadingThumb" class="progress">grab a progress bar from bootstrap</div>-->

@@ -1,14 +1,14 @@
 'use strict';
 
-function CMSController($scope, $http, dataService) {
+function CMSController($http, projectService) {
 
   let _this = this;
   _this.projects;
-  _this.formProject;
+  _this.formProject = {};
 
   // Populate the projects variable on page load
-  dataService.getPortfolio(function(response) {
-    console.log('@cmsCtrl:dataService.getPortfolio()');
+  projectService.getAll(function(response) {
+    console.log('@cmsCtrl:projectService.getAll()');
     _this.projects = {};
     _this.projects = response.data;
   });
@@ -30,8 +30,8 @@ function CMSController($scope, $http, dataService) {
   // ### Reset DB ###############################
   // ############################################
   this.reset = function() {
-    console.log('@cmsCtrl:dataService.reset()');
-    dataService.reset(function(response) {
+    console.log('@cmsCtrl:projectService.reset()');
+    projectService.reset(function(response) {
       _this.projects = {};
       _this.projects = response.data;
     });
@@ -44,43 +44,32 @@ function CMSController($scope, $http, dataService) {
     console.log('@cmsCtrl: showForm() ');
     if("undefined" === typeof proj) {
       _this.formProject = {};
-      _this.adding = !this.adding;
       _this.editing = false;
+      _this.adding = true;
+    }
+    else if(!_this.editing || proj._id != _this.formProject._id) {
+      _this.formProject = {};
+      _this.formProject = proj;
+      _this.adding = false;
+      _this.editing = true;
     }
     else {
-      _this.formProject = proj;
-      _this.editing = !this.editing;
-      _this.adding = false;
+      _this.editing = false;
+      _this.formProject = {};
     }
   }
   
   this.cancel = function() {
-    _this.adding = !this.adding;
+    _this.adding = false;
+    _this.editing = false;
     _this.formProject = {};
   }
 
   this.submit = function(proj) {
     console.log('@cmsCtrl: submit() ');
-    console.log(proj);
-    // if ("undefined" === typeof proj._id) {
-    //   dataService.addProject({proj: proj}, function(response) {
-    //     console.log('@cmsCtrl:dataService.addProject()');
-    //     _this.projects.push(response.data);
-    //     _this.formProject = {};
-    //     _this.adding = false;
-    //   });
-    // }
-    // else {
-    //   dataService.updateProject({id: proj._id, proj: proj}, function(response) {
-    //     console.log('@cmsCtrl:dataService.updateProject()');
-    //     // _this.projects.push(response.data);
-    //     _this.formProject = {};
-    //     _this.editing = false;
-    //   });
-    // }
 
-    dataService.upsertProject({proj: proj}, function(response) {
-      console.log('@cmsCtrl:dataService.upsert()');
+    projectService.upsert({proj: proj}, function(response) {
+      console.log('@cmsCtrl:projectService.upsert()');
       if( "undefined" === typeof proj._id ) {
         _this.projects.push(response.data);
         _this.adding = false;
@@ -88,8 +77,7 @@ function CMSController($scope, $http, dataService) {
       else {
         _this.editing = false;
       }
-      _this.formProject = {};
-      
+      _this.formProject = {};      
     });
   }
 
@@ -99,8 +87,8 @@ function CMSController($scope, $http, dataService) {
   this.delete = function(idx) {
     console.log('@cmsCtrl: delete()');
     var proj = _this.projects[idx];
-    dataService.deleteProject({id: proj._id}, function(response) {
-      console.log('@dataService.deleteProject callback');
+    projectService.delete({id: proj._id}, function(response) {
+      console.log('@projectService.delete()');
       _this.projects.splice(idx, 1);
     });
   }

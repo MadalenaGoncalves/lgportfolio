@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive('yearSelect',function(){
   var currentYear = new Date().getFullYear();
   return {

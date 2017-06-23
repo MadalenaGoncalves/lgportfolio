@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive('projectForm',function(){
   return {
     scope: {
