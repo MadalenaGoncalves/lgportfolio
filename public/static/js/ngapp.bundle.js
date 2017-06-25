@@ -96,8 +96,8 @@ function CMSController($http, projectService) {
   _this.formProject = {};
 
   // Populate the projects variable on page load
-  projectService.getAll(function (response) {
-    console.log('@cmsCtrl:projectService.getAll()');
+  projectService.getAllFull(function (response) {
+    console.log('@cmsCtrl:projectService.getAllFull()');
     _this.projects = {};
     _this.projects = response.data;
   });
@@ -292,6 +292,14 @@ function uploadController($scope, $timeout, uploadService) {
     });
   };
 
+  // var files = event.target.files;
+  // var file = files[files.length-1];
+  // var reader = new FileReader();
+  // reader.onload = function(e) {
+  //   $scope.$apply(function(){
+  //     $scope.photo = e.target.result; // photo is the ng-source
+  //   }
+  // }
   $scope.thumbnailChanged = function (files) {
     if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/i)) {
       $scope.uploadingThumb = true;
@@ -302,6 +310,7 @@ function uploadController($scope, $timeout, uploadService) {
         $timeout(function () {
           $scope.thumbnail = {};
           $scope.thumbnail.dataUrl = e.target.result;
+          // $scope.thumbnail must change to cmsCtrl.formProject.thumbnail
           $scope.uploadingThumb = false;
           $scope.thumbnailMessage = false;
         });
@@ -336,21 +345,15 @@ function projectService($http, $routeParams) {
     $http.get('/home').then(callback);
   };
 
-  this.getOne = function (callback) {
-    console.log('@projectService:getOne - id: ' + $routeParams.id);
-    console.log($routeParams);
-    $http.get('/projects/' + $routeParams.id).then(callback);
+  this.getAllFull = function (callback) {
+    console.log('@projectService:getAllFull: get(/cms).then(callback)');
+    $http.get('/cms').then(callback);
   };
 
-  // this.addProject = function(proj, callback) {
-  //   console.log('@projectService:addProject');
-  //   $http.post('/cms',proj).then(callback);
-  // };
-
-  // this.updateProject = function(data, callback) {
-  //   console.log('@projectService:updateProject - id: ' + data.id);
-  //   $http.post('/cms/' + data.id, data.proj).then(callback);
-  // };
+  this.getOne = function (callback) {
+    console.log('@projectService:getOne - id: ' + $routeParams.id);
+    $http.get('/projects/' + $routeParams.id).then(callback);
+  };
 
   this.upsert = function (data, callback) {
     console.log('@projectService:upsert - id: ' + data.proj._id);
@@ -385,7 +388,20 @@ function uploadService($http, $routeParams) {
     var fd = new FormData();
     fd.append('projThumbnail', file.upload); // this 'projThumbnail' name has to be the same in the html
 
-    return $http.post('/uploadthumbnail', fd, {
+    return $http.post('/upload/thumbnail', fd, {
+      transformRequest: angular.identity,
+      headers: { 'Content-Type': undefined }
+    });
+  };
+
+  this.uploadMany = function () {
+    var fd = new FormData();
+
+    angular.forEach($scope.files, function (file) {
+      fd.append('file', file);
+    });
+
+    return $http.post('/upload/images', fd, {
       transformRequest: angular.identity,
       headers: { 'Content-Type': undefined }
     });
@@ -403,28 +419,27 @@ module.exports = uploadService;
 
 
 function fileModel($parse) {
+  // function fileInput($parse) {
   return {
     restrict: 'A', // attribute  E-element, A-Attribute, C-Class, M-Comments
+    link: function link(scope, element, attrs) {
+      // link is to manipulate the DOM - element, in this case is the "input" html element, and "file-model" is one of its attributes
+      element.bind('change', function () {
+        $parse(attrs.fileModel).assign(scope, element[0].files[0]);
+        // $parse(attrs.fileInput).assign(scope, element[0].files);
+        scope.$apply();
+      });
+    }
     //scope: {},  // isolated scopes: 
     // in "scope: { customerInfo: '=info' }" 
     //  info - Attr in the html directive. In the Ctrl, binds to our scope object (ex: $scope.naomi = {name:'Naomi'} )
     //  customerInfo - In html, allows us to access the object of the scope (ex: {{customerInto.name}} )
     // in "scope: { close: '&onClose' }" used to expose an API for binding to behaviors
-    link: function link(scope, element, attrs) {
-      // link is to manipulate the DOM
-      var parsedFile = $parse(attrs.fileModel); // element, in this case is the "input" html element, and "file-model" is one of its attributes
-      var parsedFileSetter = parsedFile.assign;
-
-      element.bind('change', function () {
-        scope.$apply(function () {
-          parsedFileSetter(scope, element[0].files[0]);
-        });
-      });
-    }
   };
 }
 
 module.exports = fileModel;
+// module.exports = fileInput;
 
 /***/ })
 ],[13]);

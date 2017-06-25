@@ -11,8 +11,23 @@ let Project = mongoose.model('projects');
 
 exports.getAll = function(req,res){
   console.log("@api.js:getAll");
-  // let query = Project.find({},'name title').exec(myCallback);
-  let query = Project.find({}).exec(function(err,docs){
+
+  Project.find({},{name:1,title:1})
+  .exec(function(err,docs){
+    if(err) {
+      // Issue Internal Server Error
+      return res.stats(500).json({message: err.message});
+    }
+    res.json(docs);
+  });
+}
+
+exports.getAllFull = function(req,res){
+  console.log("@api.js:getAllFull");
+
+  Project.find({})
+  .populate('images')
+  .exec(function(err,docs){
     if(err) {
       // Issue Internal Server Error
       return res.stats(500).json({message: err.message});
@@ -39,20 +54,20 @@ exports.upsert = function (req, res) {
 
   let id = ("undefined" === typeof req.body._id) ? new mongoose.mongo.ObjectID() : req.body._id;
   let proj = {
-    name          : ("undefined" === typeof req.body.name) ? "" : req.body.name,
-    shortTitle    : ("undefined" === typeof req.body.shortTitle) ? "" : req.body.shortTitle,
-    shortDesc     : ("undefined" === typeof req.body.shortDesc) ? "" : req.body.shortDesc,
+    name          : ("undefined" === typeof req.body.name) ? getNext() : req.body.name,
+    // shortTitle    : ("undefined" === typeof req.body.shortTitle) ? "" : req.body.shortTitle,
+    // shortDesc     : ("undefined" === typeof req.body.shortDesc) ? "" : req.body.shortDesc,
     title         : ("undefined" === typeof req.body.title) ? "" : req.body.title,
     description   : ("undefined" === typeof req.body.description) ? "" : req.body.description,
     category      : ("undefined" === typeof req.body.category) ? "" : req.body.category,
     startYear     : ("undefined" === typeof req.body.startYear) ? "" : req.body.startYear,
     endYear       : ("undefined" === typeof req.body.endYear) ? "" : req.body.endYear,
-    thumbnailId   : ("undefined" === typeof req.body.thumbnailId) ? "" : req.body.thumbnailId,
+    // thumbnailId   : ("undefined" === typeof req.body.thumbnailId) ? "" : req.body.thumbnailId,
     address       : ("undefined" === typeof req.body.address) ? "" : req.body.address,
     country       : ("undefined" === typeof req.body.country) ? "" : req.body.country,
     city          : ("undefined" === typeof req.body.city) ? "" : req.body.city,
-    grossArea     : ("undefined" === typeof req.body.grossArea) ? "" : req.body.grossArea,
-    floorArea     : ("undefined" === typeof req.body.floorArea) ? "" : req.body.floorArea,
+    grossArea     : ("undefined" === typeof req.body.grossArea) ? 0.0 : req.body.grossArea,
+    floorArea     : ("undefined" === typeof req.body.floorArea) ? 0.0 : req.body.floorArea,
     company       : ("undefined" === typeof req.body.company) ? "" : req.body.company,
     companyUrl    : ("undefined" === typeof req.body.companyUrl) ? "" : req.body.companyUrl,
     participation : ("undefined" === typeof req.body.participation) ? "" : req.body.participation
@@ -78,5 +93,19 @@ exports.delete = function (req, res) {
       return res.stats(500).json({message: err.message});
     }
     res.json(docs);
+  });
+}
+
+var getNext = function () {
+  console.log("@api.js:getNext");
+  
+  Project.find({},{name:1}).sort({name:-1}).limit(1).exec(function(err,docs){
+    if(err) {
+      // Issue Internal Server Error
+      return res.stats(500).json({message: err.message});
+    }
+    console.log(docs[0].name.match(/\d+/)[0]+1);
+    
+    return docs[0].name.match(/\d+/)[0]+1;
   });
 }

@@ -24,6 +24,15 @@ function uploadController($scope, $timeout, uploadService) {
 
   };
 
+
+// var files = event.target.files;
+// var file = files[files.length-1];
+// var reader = new FileReader();
+// reader.onload = function(e) {
+//   $scope.$apply(function(){
+//     $scope.photo = e.target.result; // photo is the ng-source
+//   }
+// }
   $scope.thumbnailChanged = function(files) {
     if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/i)) {
       $scope.uploadingThumb = true;
@@ -34,6 +43,7 @@ function uploadController($scope, $timeout, uploadService) {
         $timeout(function() {
           $scope.thumbnail = {};
           $scope.thumbnail.dataUrl = e.target.result;
+          // $scope.thumbnail must change to cmsCtrl.formProject.thumbnail
           $scope.uploadingThumb = false;
           $scope.thumbnailMessage = false;
         });

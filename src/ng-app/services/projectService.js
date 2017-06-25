@@ -7,21 +7,15 @@ function projectService($http, $routeParams) {
     $http.get('/home').then(callback);
   };
 
-  this.getOne = function(callback) {
-    console.log('@projectService:getOne - id: ' + $routeParams.id);
-    console.log($routeParams);
-    $http.get('/projects/' + $routeParams.id).then(callback);
+  this.getAllFull = function(callback) {
+    console.log('@projectService:getAllFull: get(/cms).then(callback)');
+    $http.get('/cms').then(callback);
   };
 
-  // this.addProject = function(proj, callback) {
-  //   console.log('@projectService:addProject');
-  //   $http.post('/cms',proj).then(callback);
-  // };
-
-  // this.updateProject = function(data, callback) {
-  //   console.log('@projectService:updateProject - id: ' + data.id);
-  //   $http.post('/cms/' + data.id, data.proj).then(callback);
-  // };
+  this.getOne = function(callback) {
+    console.log('@projectService:getOne - id: ' + $routeParams.id);
+    $http.get('/projects/' + $routeParams.id).then(callback);
+  };
 
   this.upsert = function(data, callback) {
     console.log('@projectService:upsert - id: ' + data.proj._id);    

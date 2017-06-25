@@ -1,4 +1,28 @@
-<!--<form name="projectForm" ng-submit="submit(project)">-->
+<img ng-src="/thumbnails/{{ cmsCtrl.formProject.thumbnailId || thumbnail.dataUrl || 'default.png' }}" 
+       style="width:100%; height:100%; max-width:100px;">
+
+<div ng-controller="UploadController as uploadCtrl">
+  <form ng-submit="submitThumbnail();">
+    <label>Change thumbnail
+      <input type="file" file-model="file.upload" name="projThumbnail" ng-disabled="uploadingThumb" 
+             onchange="angular.element(this).scope().thumbnailChanged(this.files)">
+      <!--<input type="file" file-input="file" name="thumbnail" ng-disabled="uploadingThumb" 
+             onchange="angular.element(this).scope().thumbnailChanged(this.files)">-->
+    </label>
+    <button ng-disabled="uploadingThumb" type="submit">Save</button>
+    <button ng-click="cancelThumbnailUpload()" type="reset">Cancel</button>
+    <span>Allowed formats: .png, .jpg</span>
+  </form>
+
+  <div ng-show="thumbnailMessage">
+    <div ng-class="alert">{{ thumbnailMessage }}</div>
+  </div>
+</div>
+<!--<div ng-show="uploadingThumb" class="progress">grab a progress bar from bootstrap</div>-->
+
+<br/>
+<br/>
+
 <div>
   <label>New project</label>
   <input type="text" ng-model="cmsCtrl.formProject.title"/>
@@ -28,7 +52,8 @@
   </div>
   <div>
     <label>Start Date</label>
-    <select ng-model="cmsCtrl.formProject.start" ng-options="year for year in cmsCtrl.years" ng-change="">
+    <select ng-model="cmsCtrl.formProject.startYear" ng-options="year for year in cmsCtrl.years">
+                                                             <!--year.id as year.value for year in years-->
       <option value="" disabled>Select year</option>
     </select>
   </div>
@@ -36,23 +61,27 @@
 <div class="fields">
   <div>
     <label>End Date</label>
-    <select ng-model="cmsCtrl.formProject.end" ng-options="year for year in cmsCtrl.years" ng-change="">
+    <select ng-model="cmsCtrl.formProject.endYear" ng-options="year for year in cmsCtrl.years">
       <option value="" disabled>Select year</option>
     </select>
   </div>
   <div>
     <label>Gross Area</label>
-    <input type="text" ng-model="cmsCtrl.formProject.grossarea"/>
+    <input type="number" step="0.01" ng-model="cmsCtrl.formProject.grossArea" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
   </div>
   <div>
     <label>Floor Area</label>
-    <input type="text" ng-model="cmsCtrl.formProject.floorarea"/>
+    <input type="number" step="0.01" ng-model="cmsCtrl.formProject.floorArea" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
   </div>
 </div>
 <div class="fields">
   <div>
-    <label>Company</label>
+    <label>Company Name</label>
     <input type="text" ng-model="cmsCtrl.formProject.company"/>
+  </div>
+  <div>
+    <label>Company Url</label>
+    <input type="text" ng-model="cmsCtrl.formProject.companyUrl"/>
   </div>
   <div>
     <label>Participation</label>
@@ -60,45 +89,20 @@
   </div>
 </div>
 
-<label>Thumbnail... to be done</label>
-<!-- upload new image -->
-<!-- choose image already in the from database -->
-<br/>
-<label>Images... to be done</label>
-<!-- upload new image or -->
-<!-- upload new set of images or -->
-<!-- choose image already in the from database -->
+<a href ng-click="cmsCtrl.addImages()">Add images</a>
+<div ng-if="cmsCtrl.formProject.images.length">
+  <label>Images</label>
+  <ul>
+    <li ng-repeat="image in cmsCtrl.formProject.images">
+      <img ng-src="/portfolio/{{ image.name }}.png" 
+       style="width:100%; height:100%; max-width:100px;">
+      <span>{{image.caption}}</span>
+      <a href ng-click="cmsCtrl.editCaption(image._id)"> Edit </a>
+      <a href ng-click="cmsCtrl.deleteImage($index)"> Delete </a>
+    </li>
+  </ul>
+</div>
 
 <pre>{{ project | json }} </pre>
-
-<!--<input type="submit" id="submit" value="submit" />-->
-<!--</form>-->
-
 <button ng-click="cmsCtrl.submit(cmsCtrl.formProject)">Save</button>
 <button ng-click="cmsCtrl.cancel()">Cancel</button>
-
-<!--<a href ng-click="cmsCtrl.submit()">Save</a>
-<a href ng-click="cmsCtrl.cancel()">Cancel</a>-->
-
-
-<br/>
-<br/>
-
-<div ng-controller="UploadController as uploadCtrl">
-  <form ng-submit="submitThumbnail();">
-    <label>Change thumbnail
-      <input type="file" file-model="file.upload" name="projThumbnail" ng-disabled="uploadingThumb" 
-             onchange="angular.element(this).scope().thumbnailChanged(this.files)">
-    </label>
-    <button ng-disabled="uploadingThumb" type="submit">Save</button>
-    <button ng-click="cancelThumbnailUpload()" type="reset">Cancel</button>
-    <span>Allowed formats: .png, .jpg</span>
-  </form>
-
-  <img ng-src="{{ thumbnail.dataUrl || '/thumbnails/default.png' }}" style="width:100%; height:100%; max-width:100px;">
-
-  <div ng-show="thumbnailMessage">
-    <div ng-class="alert">{{ thumbnailMessage }}</div>
-  </div>
-</div>
-<!--<div ng-show="uploadingThumb" class="progress">grab a progress bar from bootstrap</div>-->

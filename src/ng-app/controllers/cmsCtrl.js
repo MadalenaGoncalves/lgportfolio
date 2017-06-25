@@ -7,8 +7,8 @@ function CMSController($http, projectService) {
   _this.formProject = {};
 
   // Populate the projects variable on page load
-  projectService.getAll(function(response) {
-    console.log('@cmsCtrl:projectService.getAll()');
+  projectService.getAllFull(function(response) {
+    console.log('@cmsCtrl:projectService.getAllFull()');
     _this.projects = {};
     _this.projects = response.data;
   });
