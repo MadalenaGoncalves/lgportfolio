@@ -16,7 +16,7 @@
     "build:prod": "webpack -p --progress",
     "start": "webpack-dev-server --inline --progress",
     "dev": "nodemon src/server.js",
-    "debug": "nodemon --debug-brk src/server.js",
+    "debug": "node --inspect-brk src/server.js",
     "build-css": "node-sass --output-style compressed public/sass/styles.scss -o public/static/css",
     "sass": "node-sass -w --output-style compressed public/sass/styles.scss -o public/static/css"
   },
@@ -47,7 +47,6 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "img-loader": "^2.0.0",
-    "node-inspector": "^1.1.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "sass-loader": "^6.0.5",

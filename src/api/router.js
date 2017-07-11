@@ -2,13 +2,13 @@
 
 const express = require('express'),
       path    = require('path'),
-      async = require('async'),
-      router  = express.Router();
-      
-const api                = require('./api.js'),
+      api                = require('./api.js'),
       dbreset            = require('./dbReset.js'),
       contactFormHandler = require('./contactFormHandler'),
-      uploadHanlder      = require('./upload');
+      uploadHanlder      = require('./uploadHandler');
+
+const router  = express.Router();
+
 
 // rewrite virtual urls to angular app to enable refreshing of internal pages
 // router.get('*', function (req, res, next) {
@@ -54,7 +54,7 @@ router.delete('/cms/:id', function(req, res) {
 });
 
 router.post('/upload/thumbnail', function(req, res) {
-  console.log("@router.js : post('/upload/thumbnail");
+  console.log("@router.js : post('/upload/thumbnail')");
   
   uploadHanlder.uploadThumbnail(req, res, function(err) {
     if (err) {
@@ -73,7 +73,7 @@ router.post('/upload/thumbnail', function(req, res) {
         console.log('No file');
         res.json({ success: false, message: 'No file was selected' });
       } else {
-        api.updateThumbnail
+        // api.updateThumbnail
         console.log('File uploaded');
         res.json({ success: true, message: 'File uploaded!' });
       }

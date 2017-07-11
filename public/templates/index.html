@@ -20,13 +20,15 @@
     <![endif]-->
   </head>
   <body ng-app="portfolio">
-    <ng-include src="'partials/navbar.html'"></ng-include>
+    <ng-include src="'navbar.html'"></ng-include>
 
     <main id="content" role="main">
       <ng-view></ng-view>
     </main>
     
-    <!--<ng-include src="'partials/footer.html'"></ng-include>-->
+    <footer role="contentinfo">
+      <small>&copy LuisaGonçalves 2016</small>
+    </footer>
     
     <script src="static/js/vendor.bundle.js"></script>
     <script src="static/js/ngapp.bundle.js"></script>

@@ -5,11 +5,11 @@ var angular = require('angular');
 
 // file upload module
 angular
-.module('fileModelDirective', []);
+.module('fileInputDirective', []);
 
 // main module
 angular
-.module('portfolio', ['ngRoute','ngMaterial','ngMessages', 'fileModelDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+.module('portfolio', ['ngRoute','ngMaterial','ngMessages', 'fileInputDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider' , function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider

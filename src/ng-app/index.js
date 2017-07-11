@@ -12,6 +12,4 @@ angular.module('portfolio').service('projectService', require('./services/projec
 angular.module('portfolio').service('uploadService', require('./services/uploadService'));
 
 // Directives
-// angular.module('portfolio').directive('projectForm', require('./directives/projectFormDirective'));
-// angular.module('portfolio').directive('fileModel', require('./directives/fileModelDirective'));
-angular.module('fileModelDirective').directive('fileModel', ['$parse', require('./directives/fileModelDirective')]);
+angular.module('fileInputDirective').directive('fileInput', ['$parse', require('./directives/fileInputDirective')]);

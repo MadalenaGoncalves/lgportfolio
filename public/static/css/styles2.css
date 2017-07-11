@@ -14,8 +14,25 @@ section {
 }
 
 .thumbnail {
+  width:100%;
+  height:100%;
   max-width:50px;
-  max-height:50px;
+}
+
+.thumbnailForm {
+  border: 1px solid;
+  display: inline-block;
+  width: 125px;
+}
+
+.thumbnailForm img {
+  width:100%;
+  height:100%;
+  max-width:100px;
+  display: inline-block;
+}
+.thumbnailForm input {
+  display: none;
 }
 
 #nav-main ul li {

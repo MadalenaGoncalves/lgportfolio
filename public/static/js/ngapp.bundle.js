@@ -20,13 +20,11 @@ angular.module('portfolio').controller('CMSController', __webpack_require__(14))
 angular.module('portfolio').controller('UploadController', __webpack_require__(18));
 
 // Services
-angular.module('portfolio').service('projectService', __webpack_require__(19));
-angular.module('portfolio').service('uploadService', __webpack_require__(20));
+angular.module('portfolio').service('projectService', __webpack_require__(20));
+angular.module('portfolio').service('uploadService', __webpack_require__(21));
 
 // Directives
-// angular.module('portfolio').directive('projectForm', require('./directives/projectFormDirective'));
-// angular.module('portfolio').directive('fileModel', require('./directives/fileModelDirective'));
-angular.module('fileModelDirective').directive('fileModel', ['$parse', __webpack_require__(22)]);
+angular.module('fileInputDirective').directive('fileInput', ['$parse', __webpack_require__(19)]);
 
 /***/ }),
 /* 7 */,
@@ -46,10 +44,10 @@ angular.module('fileModelDirective').directive('fileModel', ['$parse', __webpack
 var angular = __webpack_require__(0);
 
 // file upload module
-angular.module('fileModelDirective', []);
+angular.module('fileInputDirective', []);
 
 // main module
-angular.module('portfolio', ['ngRoute', 'ngMaterial', 'ngMessages', 'fileModelDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
+angular.module('portfolio', ['ngRoute', 'ngMaterial', 'ngMessages', 'fileInputDirective']) // 'ngAnimate','ngAria','ngMaterial','ngMessages'])
 .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $routeProvider.when('/home', {
@@ -89,11 +87,18 @@ __webpack_require__(6);
 "use strict";
 
 
-function CMSController($http, projectService) {
+function CMSController($scope, $http, $timeout, projectService, uploadService) {
 
   var _this = this;
-  _this.projects;
-  _this.formProject = {};
+
+  // Initialize validation variables
+  _this.adding = false;
+  _this.editing = false;
+  _this.thumbnailChanged = false;
+  _this.imagesChanged = false;
+  _this.blockForm = false;
+  _this.file = {};
+  _this.alert = '';
 
   // Populate the projects variable on page load
   projectService.getAllFull(function (response) {
@@ -102,18 +107,124 @@ function CMSController($http, projectService) {
     _this.projects = response.data;
   });
 
-  // ############################################
-  // ### Front-end validation variables #########
-  // ############################################
-  _this.adding = false;
-  _this.editing = false;
-
   // Year values to populate select elements
   var year = new Date().getFullYear();
   _this.years = [];
   for (var i = 2004; i <= 2030; i++) {
     _this.years.push(i);
   }
+
+  // ############################################
+  // ### Toggle editor ##########################
+  // ############################################
+  this.toggleForm = function (proj) {
+    console.log('@cmsCtrl: toggleForm() ');
+    if ("undefined" === typeof proj) {
+      _this.project = {};
+      _this.editing = false;
+      _this.adding = true;
+    } else if (!_this.editing || proj._id != _this.project._id) {
+      _this.project = {};
+      _this.project = proj;
+      _this.adding = false;
+      _this.editing = true;
+    } else {
+      _this.editing = false;
+      _this.project = {};
+    }
+  };
+
+  this.cancel = function () {
+    _this.adding = false;
+    _this.editing = false;
+    _this.project = {};
+    _this.thumbnailUrl = '';
+    _this.thumbnailChanged = false;
+  };
+
+  // ############################################
+  // ### Watch thumbnail changes ################
+  // ############################################
+  $scope.thumbnailChanged = function (files) {
+    if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg|gif)$/i)) {
+
+      var file = files[0];
+      var fileReader = new FileReader();
+      console.log("File name:" + file.name);
+
+      fileReader.onload = function (e) {
+        $timeout(function () {
+          _this.thumbnailUrl = '';
+          _this.thumbnailUrl = e.target.result;
+        });
+      };
+
+      fileReader.readAsDataURL(file);
+      _this.thumbnailChanged = true;
+    } else {
+      _this.thumbnailUrl = '';
+      _this.thumbnailChanged = false;
+    }
+  };
+
+  // ############################################
+  // ### Form submit ############################
+  // ############################################
+  this.submit = function (proj) {
+    console.log('@cmsCtrl: submit() ');
+
+    _this.inProgress = true;
+
+    projectService.upsert({ proj: proj }, function (response) {
+      console.log('@cmsCtrl:projectService.upsert()');
+      if ("undefined" === typeof proj._id) {
+        _this.projects.push(response.data);
+        _this.adding = false;
+      } else {
+        _this.editing = false;
+      }
+      _this.project = {};
+    });
+
+    console.log("projectID : ?");
+
+    // if(_this.thumbnailChanged) {
+    //   console.log('change thumbnail here');
+    // }
+
+    // if(_this.imagesChanged) {
+    //   console.log('change images here');
+    // }
+  };
+  _this.submitThumbnail = function () {
+    _this.uploadingThumb = true;
+    uploadService.uploadThumbnail(_this.file[0]).then(function (data) {
+      if (data.data.success) {
+        _this.alert = 'alert alert-success'; // this is just for the ng-class
+        _this.file = {};
+      } else {
+        _this.alert = 'alert alert-danger';
+        _this.file = {};
+      }
+    });
+  };
+
+  // ############################################
+  // ### Delete project #########################
+  // ############################################
+  this.delete = function (idx) {
+    console.log('@cmsCtrl: delete()');
+
+    // ToDo: alert box to confirm action
+
+    var proj = _this.projects[idx];
+    // ToDo: delete thumbnail
+    // Todo: delete images
+    projectService.delete({ id: proj._id }, function (response) {
+      console.log('@projectService.delete()');
+      _this.projects.splice(idx, 1);
+    });
+  };
 
   // ############################################
   // ### Reset DB ###############################
@@ -125,77 +236,6 @@ function CMSController($http, projectService) {
       _this.projects = response.data;
     });
   };
-
-  // ############################################
-  // ### Add/Edit project #######################
-  // ############################################
-  this.showForm = function (proj) {
-    console.log('@cmsCtrl: showForm() ');
-    if ("undefined" === typeof proj) {
-      _this.formProject = {};
-      _this.editing = false;
-      _this.adding = true;
-    } else if (!_this.editing || proj._id != _this.formProject._id) {
-      _this.formProject = {};
-      _this.formProject = proj;
-      _this.adding = false;
-      _this.editing = true;
-    } else {
-      _this.editing = false;
-      _this.formProject = {};
-    }
-  };
-
-  this.cancel = function () {
-    _this.adding = false;
-    _this.editing = false;
-    _this.formProject = {};
-  };
-
-  this.submit = function (proj) {
-    console.log('@cmsCtrl: submit() ');
-
-    projectService.upsert({ proj: proj }, function (response) {
-      console.log('@cmsCtrl:projectService.upsert()');
-      if ("undefined" === typeof proj._id) {
-        _this.projects.push(response.data);
-        _this.adding = false;
-      } else {
-        _this.editing = false;
-      }
-      _this.formProject = {};
-    });
-  };
-
-  // ############################################
-  // ### Delete project #########################
-  // ############################################
-  this.delete = function (idx) {
-    console.log('@cmsCtrl: delete()');
-    var proj = _this.projects[idx];
-    projectService.delete({ id: proj._id }, function (response) {
-      console.log('@projectService.delete()');
-      _this.projects.splice(idx, 1);
-    });
-  };
-
-  // this.initProject = function() {
-  //   return {
-  //     // "name": "",
-  //     // "category": "",
-  //     // "description": "",
-  //     // "address": "",
-  //     // "city": "",
-  //     // "country": "",
-  //     // "start": "",
-  //     // "end": "",
-  //     // "grossarea": 0.00,
-  //     // "floorarea": 0.00,
-  //     // "company": "",
-  //     // "participation": "",
-  //     // "images": []
-  //   }
-  // };
 };
 
 module.exports = CMSController;
@@ -270,69 +310,97 @@ module.exports = ProjectController;
 
 
 function uploadController($scope, $timeout, uploadService) {
-  $scope.file = {};
-  $scope.thumbnailMessage = false;
-  $scope.alert = '';
+  var _this = this;
+  var defaultThumbnailUrl = '/thumbnails/default.png';
 
-  $scope.submitThumbnail = function () {
-    $scope.uploadingThumb = true;
+  _this.thumbnailUrl = defaultThumbnailUrl;
+  _this.file = {};
+  _this.alert = '';
 
-    uploadService.uploadThumbnail($scope.file).then(function (data) {
+  _this.submitThumbnail = function () {
+    _this.uploadingThumb = true;
+    uploadService.uploadThumbnail(_this.file[0]).then(function (data) {
       if (data.data.success) {
-        $scope.uploadingThumb = false;
-        $scope.alert = 'alert alert-success'; // this is just for the ng-class
-        $scope.thumbnailMessage = data.data.message;
-        $scope.file = {};
+        _this.uploadingThumb = false;
+        _this.alert = 'alert alert-success'; // this is just for the ng-class
+        _this.file = {};
       } else {
-        $scope.uploadingThumb = false;
-        $scope.alert = 'alert alert-danger';
-        $scope.thumbnailMessage = data.data.message;
-        $scope.file = {};
+        _this.uploadingThumb = false;
+        _this.alert = 'alert alert-danger';
+        _this.file = {};
       }
     });
   };
 
-  // var files = event.target.files;
-  // var file = files[files.length-1];
-  // var reader = new FileReader();
-  // reader.onload = function(e) {
-  //   $scope.$apply(function(){
-  //     $scope.photo = e.target.result; // photo is the ng-source
-  //   }
-  // }
   $scope.thumbnailChanged = function (files) {
-    if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/i)) {
-      $scope.uploadingThumb = true;
+    if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg|gif)$/i)) {
+      _this.uploadingThumb = true;
+
       var file = files[0];
       var fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+      console.log("File name:" + file.name);
+
       fileReader.onload = function (e) {
         $timeout(function () {
-          $scope.thumbnail = {};
-          $scope.thumbnail.dataUrl = e.target.result;
-          // $scope.thumbnail must change to cmsCtrl.formProject.thumbnail
-          $scope.uploadingThumb = false;
-          $scope.thumbnailMessage = false;
+          _this.thumbnailUrl = {};
+          _this.thumbnailUrl = e.target.result;
+          _this.uploadingThumb = false;
         });
       };
+
+      fileReader.readAsDataURL(file);
     } else {
-      $scope.thumbnail = {};
-      $scope.thumbnailMessage = false;
+      _this.thumbnailUrl = {};
     }
   };
 
-  $scope.cancelThumbnailUpload = function () {
-    $scope.thumbnail = {};
-    $scope.file = {};
-    $scope.uploadingThumb = false;
-    $scope.thumbnailMessage = false;
-  };
+  //   _this.cancelThumbnailUpload = function() {
+  //     // _this.thumbnailUrl = {};
+  //     _this.file = {};
+  //     _this.uploadingThumb = false;
+  //   }
 };
 
 module.exports = uploadController;
 
 /***/ }),
 /* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function fileInput($parse) {
+  return {
+    restrict: 'A',
+    link: function link(scope, element, attrs) {
+
+      // Parse the file
+      var parsedFile = $parse(attrs.fileInput);
+      var parsedFileSetter = parsedFile.assign;
+
+      // Update the scope with the parsed file
+      element.bind('change', function () {
+        scope.$apply(function () {
+          parsedFileSetter(scope, element[0].files); // check just the first file
+        });
+      });
+    }
+  };
+}
+
+// restrict: A-attribute  E-element, C-Class, M-Comments
+// link: used to manipulate the DOM - element, in this case is the "input" html element, and "file-model" is one of its attributes
+//scope: {},  // isolated scopes: 
+// in "scope: { customerInfo: '=info' }" 
+//  info - Attr in the html directive. In the Ctrl, binds to our scope object (ex: $scope.naomi = {name:'Naomi'} )
+//  customerInfo - In html, allows us to access the object of the scope (ex: {{customerInto.name}} )
+// in "scope: { close: '&onClose' }" used to expose an API for binding to behaviors
+
+module.exports = fileInput;
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -374,7 +442,7 @@ function projectService($http, $routeParams) {
 module.exports = projectService;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -386,7 +454,7 @@ function uploadService($http, $routeParams) {
     console.log('@uploadService.js: uploadThumbnail()');
 
     var fd = new FormData();
-    fd.append('projThumbnail', file.upload); // this 'projThumbnail' name has to be the same in the html
+    fd.append('thumbnail', file); // 'thumbnail' has to be the fieldname of the html input
 
     return $http.post('/upload/thumbnail', fd, {
       transformRequest: angular.identity,
@@ -394,10 +462,11 @@ function uploadService($http, $routeParams) {
     });
   };
 
-  this.uploadMany = function () {
-    var fd = new FormData();
+  this.uploadImages = function (files) {
+    console.log('@uploadService.js: uploadImages()');
 
-    angular.forEach($scope.files, function (file) {
+    var fd = new FormData();
+    angular.forEach(files, function (file) {
       fd.append('file', file);
     });
 
@@ -409,37 +478,6 @@ function uploadService($http, $routeParams) {
 }
 
 module.exports = uploadService;
-
-/***/ }),
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function fileModel($parse) {
-  // function fileInput($parse) {
-  return {
-    restrict: 'A', // attribute  E-element, A-Attribute, C-Class, M-Comments
-    link: function link(scope, element, attrs) {
-      // link is to manipulate the DOM - element, in this case is the "input" html element, and "file-model" is one of its attributes
-      element.bind('change', function () {
-        $parse(attrs.fileModel).assign(scope, element[0].files[0]);
-        // $parse(attrs.fileInput).assign(scope, element[0].files);
-        scope.$apply();
-      });
-    }
-    //scope: {},  // isolated scopes: 
-    // in "scope: { customerInfo: '=info' }" 
-    //  info - Attr in the html directive. In the Ctrl, binds to our scope object (ex: $scope.naomi = {name:'Naomi'} )
-    //  customerInfo - In html, allows us to access the object of the scope (ex: {{customerInto.name}} )
-    // in "scope: { close: '&onClose' }" used to expose an API for binding to behaviors
-  };
-}
-
-module.exports = fileModel;
-// module.exports = fileInput;
 
 /***/ })
 ],[13]);

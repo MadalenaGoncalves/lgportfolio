@@ -1,0 +1,97 @@
+<form class="thumbnailForm">
+  <label>Change thumbnail
+    <img ng-src="{{ cmsCtrl.thumbnailUrl || ('/thumbnails/' + cmsCtrl.project.thumbnailId) }}"
+        ng-show="cmsCtrl.thumbnailUrl || cmsCtrl.project.thumbnailId">
+    <input type="file" file-input="cmsCtrl.file" name="thumbnail" ng-disabled="cmsCtrl.blockForm"
+            onchange="angular.element(this).scope().thumbnailChanged(this.files)"/> 
+  </label>
+  <button ng-disabled="cmsCtrl.blockForm" ng-click="cmsCtrl.submitThumbnail()">Save</button>
+  <!--<span>Allowed formats: png,jpeg,jpg,gif</span>-->
+  <span>{{cmsCtrl.file[0].name}}</span>
+</form>
+
+<br/>
+<br/>
+
+<div>
+  <label>{{cmsCtrl.project.title || 'New project title' }}</label>
+  <input type="text" ng-model="cmsCtrl.project.title" style="display: none;"/>
+</div>
+<div class="fields">
+  <div>
+    <label>Category</label>
+    <input type="text" ng-model="cmsCtrl.project.category"/>
+  </div>
+  <div>
+    <label>Description</label>
+    <input type="text" ng-model="cmsCtrl.project.description"/>
+  </div>
+  <div>
+    <label>Address</label>
+    <input type="text" ng-model="cmsCtrl.project.address"/>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>City</label>
+    <input type="text" ng-model="cmsCtrl.project.city"/>
+  </div>
+  <div>
+    <label>Country</label>
+    <input type="text" ng-model="cmsCtrl.project.country"/>
+  </div>
+  <div>
+    <label>Start Date</label>
+    <select ng-model="cmsCtrl.project.startYear" ng-options="year for year in cmsCtrl.years">
+      <option value="" disabled>Select year</option>
+    </select>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>End Date</label>
+    <select ng-model="cmsCtrl.project.endYear" ng-options="year for year in cmsCtrl.years">
+      <option value="" disabled>Select year</option>
+    </select>
+  </div>
+  <div>
+    <label>Gross Area</label>
+    <input type="number" step="0.01" ng-model="cmsCtrl.project.grossArea" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
+  </div>
+  <div>
+    <label>Floor Area</label>
+    <input type="number" step="0.01" ng-model="cmsCtrl.project.floorArea" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"/>
+  </div>
+</div>
+<div class="fields">
+  <div>
+    <label>Company Name</label>
+    <input type="text" ng-model="cmsCtrl.project.company"/>
+  </div>
+  <div>
+    <label>Company Url</label>
+    <input type="text" ng-model="cmsCtrl.project.companyUrl"/>
+  </div>
+  <div>
+    <label>Participation</label>
+    <input type="text" ng-model="cmsCtrl.project.participation"/>
+  </div>
+</div>
+
+<!--<a href ng-click="cmsCtrl.addImages()">Add images</a>
+<div ng-if="cmsCtrl.project.images.length">
+  <label>Images</label>
+  <ul>
+    <li ng-repeat="image in cmsCtrl.project.images">
+      <img ng-src="/portfolio/{{ image.name }}.png" 
+       style="width:100%; height:100%; max-width:100px;">
+      <span>{{image.caption}}</span>
+      <a href ng-click="cmsCtrl.editCaption(image._id)"> Edit </a>
+      <a href ng-click="cmsCtrl.deleteImage($index)"> Delete </a>
+    </li>
+  </ul>
+</div>-->
+
+<!--<pre>{{ cmsCtrl.project | json }} </pre>-->
+<button ng-click="cmsCtrl.submit(cmsCtrl.project)" ng-disabled="cmsCtrl.blockForm">Save</button>
+<button ng-click="cmsCtrl.cancel()" ng-disabled="cmsCtrl.blockForm">Cancel</button>

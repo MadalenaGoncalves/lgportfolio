@@ -11,6 +11,6 @@ app.directive('projectForm',function(){
     controllerAs: 'ctrl',
     bindToController: true,
     restrict: 'AE',
-    template: '/partials/edit-project'
+    template: '/edit-project'
   }
 });
