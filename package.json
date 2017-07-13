@@ -8,7 +8,7 @@
     "url": "https://github.com/MadalenaGoncalves/lgportfolio.git"
   },
   "engines": {
-    "node": "6.2.2"
+    "node": "6.11.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
