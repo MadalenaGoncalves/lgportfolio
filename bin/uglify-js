@@ -1,1 +1,0 @@
-uglifyjs public/js/app.js public/js/controllers/* -m -c -o build/scripts.min.js
