@@ -1,17 +1,21 @@
 'use strict';
 
+import './../public/css/styles.css';
+
 // Initialization of the express framework
 const express      = require('express'),
 	    bodyParser   = require('body-parser'),
 	    // favicon      = require('serve-favicon'),
       path         = require('path'),
       http         = require('http'),
-      mongoose     = require('mongoose');
-      
-const port = process.env.PORT || 3000,
-	    dbname = 'lgportfolio',
-	    mongolab_uri = 'mongodb://cheetara63:123123@ds015774.mlab.com:15774/lgportfolio';
+      mongoose     = require('mongoose'),
+      fs           = require('fs'),
 
+// Database configurations
+const dbconf = JSON.parse(fs.readFileSync('./../config/config.json', 'UTF-8'));
+const port = process.env.PORT || 3000,
+      local_uri = dbconf.local,
+      mongolab_uri = dbconf.mongolab;
 
 // Server setup
 var app = express();
@@ -41,7 +45,7 @@ app.use(function (req, res, next) {
 });
 
 // Database connection
-mongoose.connect('mongodb://localhost/lgportfoliodb' || mongolab_uri);
+mongoose.connect('mongodb://' + local_uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -51,9 +55,3 @@ db.once('open', function () {
 		console.log('Express server listening on port ' + app.get('port'));
 	})
 });
-
-// use nodemon server.js => nodemon is like browser-sync for the .js files
-// node -debug server.js => node-instpector allows debugging
-//  -- node-inspector starts the debugger
-//  -- nodemon --debug-brk server.js => allows you to run nodemon and node-inspector together (runs in a different terminal tab than node-inspector)
-//  -- we can define breakpoints in the code adding "debugger;" (that's why we need the -brk flag in the previous line)
